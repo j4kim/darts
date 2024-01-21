@@ -2,6 +2,10 @@
 
 Simple and stupid Darts championship manager using PHP and MySQL.
 
+## Wireframe
+
+https://www.tldraw.com/r/bQhuH_q9lF8Oi2Fy5STSX?viewport=-5,-113,2170,1174&page=page:page
+
 ## Set up a local environment
 
 Install mysql and php.
