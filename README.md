@@ -40,4 +40,6 @@ npm install
 Run tailwind:
 ```
 npx tailwindcss -i ./input.css -o ./public/output.css --watch
+# or
+npm run lezgo
 ```
