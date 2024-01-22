@@ -1,0 +1,8 @@
+{
+  "name": "darts",
+  "version": "0.1.0",
+  "description": "ptite féchette ?",
+  "devDependencies": {
+    "tailwindcss": "^3.4.1"
+  }
+}

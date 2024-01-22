@@ -31,3 +31,13 @@ Run local server:
 ```
 php -S localhost:1234 -t public
 ```
+
+Install js dependencies:
+```
+npm install
+```
+
+Run tailwind:
+```
+npx tailwindcss -i ./input.css -o ./public/output.css --watch
+```
