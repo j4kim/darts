@@ -22,9 +22,9 @@ Create tables:
 mysql --password=sandwich darts < db/create_tables.sql
 ```
 
-Create a first user:
+Seed example data:
 ```
-mysql --password=sandwich darts --execute="insert into users (username, password) values ('admin', md5('admin'))"
+mysql --password=sandwich darts < db/seed.sql
 ```
 
 Run local server:
