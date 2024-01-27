@@ -10,7 +10,7 @@
 <body>
     <main class="m-3">
         <div class="w-full sm:w-60">
-            <?php include(__DIR__ . "/parts/header.php") ?>
+            <?php $this->insert('parts/header') ?>
         </div>
         <?= $this->section('content') ?>
     </main>
