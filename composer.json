@@ -1,0 +1,19 @@
+{
+    "name": "j4kim/darts",
+    "description": "Fléchette championship from la tchaux",
+    "type": "project",
+    "require": {
+        "bramus/router": "^1.6"
+    },
+    "autoload": {
+        "psr-4": {
+            "J4kim\\Darts\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Joaquim Perez",
+            "email": "jivkim@gmail.com"
+        }
+    ]
+}
