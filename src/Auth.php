@@ -14,9 +14,8 @@ class Auth
         $exists = $stmt->fetchColumn();
         if ($exists) {
             $_SESSION['username'] = $username;
-            return true;
         }
-        return false;
+        return $exists === 1;
     }
 
     public static function logout(): bool
