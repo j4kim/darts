@@ -27,17 +27,20 @@ class DB {
         return self::$pdoInstance;
     }
 
-    public static function all(string $query, array $params = []): array
+    public static function fetch(string $query, array $params = [], string $method = 'fetch')
     {
         $stmt = self::pdo()->prepare($query);
         $stmt->execute($params);
-        return $stmt->fetchAll();
+        return $stmt->$method();
+    }
+
+    public static function all(string $query, array $params = []): array
+    {
+        return self::fetch($query, $params, 'fetchAll');
     }
 
     public static function one(string $query, array $params = [])
     {
-        $stmt = self::pdo()->prepare($query);
-        $stmt->execute($params);
-        return $stmt->fetchColumn();
+        return self::fetch($query, $params, 'fetchColumn');
     }
 }
