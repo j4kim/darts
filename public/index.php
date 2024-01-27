@@ -1,21 +1,25 @@
 <?php
-    session_start();
-?>
 
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link href="./output.css" rel="stylesheet">
-    <title>Darts</title>
-</head>
-<body>
-    <main class="m-3">
-        <div class="w-full sm:w-60">
-            <?php include("../views/header.php") ?>
-        </div>
-        <?php include("../views/games.php") ?>
-    </main>
-</body>
-</html>
+use J4kim\Darts\Auth;
+
+require __DIR__ . '/../vendor/autoload.php';
+
+session_start();
+
+$router = new \Bramus\Router\Router();
+
+$router->get('/', function () {
+    require '../views/home.php';
+});
+
+$router->post('login', function () {
+    Auth::login(...$_POST);
+    header('Location: /');
+});
+
+$router->post('logout', function () {
+    Auth::logout();
+    header('Location: /');
+});
+
+$router->run();

@@ -1,7 +1,7 @@
 <form
     class="flex flex-col gap-3"
     method="POST"
-    action="login.php"
+    action="login"
 >
     <p>
         <input

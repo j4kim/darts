@@ -1,20 +1,20 @@
 <?php
-$pdo = require_once __DIR__ . '/../db/connect.php';
+
+use J4kim\Darts\Auth;
+use J4kim\Darts\DB;
 
 $tournamentId = @$_GET['tournament'];
 
 if (!$tournamentId) {
-    $tournamentId = $pdo->query("SELECT id FROM tournaments ORDER BY id DESC LIMIT 1")->fetchColumn();
+    $tournamentId = DB::one("SELECT id FROM tournaments ORDER BY id DESC LIMIT 1");
 }
 
-$stmt = $pdo->prepare("SELECT * FROM games WHERE tournament_id=?");
-$stmt->execute([$tournamentId]);
-$games = $stmt->fetchAll();
+$games = DB::all("SELECT * FROM games WHERE tournament_id=?", [$tournamentId]);
 ?>
 
 <h2 class="text-2xl my-4">Parties</h2>
 <div class="flex flex-col gap-2">
-    <?php if (@$_SESSION['username']): ?>
+    <?php if (Auth::check()): ?>
         <form action="/newgame.php" method="POST">
             <input type="hidden" name="tournament_id" value="<?= $tournamentId ?>">
             <button class="btn btn-primary w-full" type="submit">
