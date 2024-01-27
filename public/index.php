@@ -2,15 +2,17 @@
 
 use Bramus\Router\Router;
 use J4kim\Darts\Auth;
+use League\Plates\Engine;
 
 require __DIR__ . '/../vendor/autoload.php';
 
 session_start();
 
 $router = new Router();
+$templates = new Engine('../views');
 
-$router->get('/', function () {
-    require '../views/home.php';
+$router->get('/', function () use ($templates) {
+    echo $templates->render('games');
 });
 
 $router->post('login', function () {

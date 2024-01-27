@@ -3,6 +3,8 @@
 use J4kim\Darts\Auth;
 use J4kim\Darts\DB;
 
+$this->layout('layout');
+
 $tournamentId = @$_GET['tournament'];
 
 if (!$tournamentId) {
