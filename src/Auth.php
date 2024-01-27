@@ -6,10 +6,9 @@ class Auth
 {
     public static function login(string $username, string $password): bool
     {
-        $hash = md5($password);
         $exists = DB::one(
             "SELECT COUNT(*) FROM users WHERE username=? AND password=?",
-            [$username, $hash]
+            [$username, md5($password)]
         );
         if ($exists) {
             $_SESSION['username'] = $username;
@@ -25,5 +24,10 @@ class Auth
     public static function check(): bool
     {
         return isset($_SESSION['username']);
+    }
+
+    public static function username(): string
+    {
+        return $_SESSION['username'];
     }
 }

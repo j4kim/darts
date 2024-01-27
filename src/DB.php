@@ -2,10 +2,12 @@
 
 namespace J4kim\Darts;
 
+use PDO;
+
 class DB {
     private static $pdoInstance;
 
-    public static function connect(): \PDO
+    public static function connect(): PDO
     {
         $config = require_once __DIR__ . '/../config.php';
 
@@ -14,10 +16,10 @@ class DB {
         $user = $config['DB_USER'];
         $pwd = $config['DB_PWD'];
 
-        return new \PDO("mysql:host=$host;dbname=$db", $user, $pwd);
+        return new PDO("mysql:host=$host;dbname=$db", $user, $pwd);
     }
 
-    public static function pdo(): \PDO
+    public static function pdo(): PDO
     {
         if (self::$pdoInstance === null) {
             self::$pdoInstance = self::connect();
