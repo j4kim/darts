@@ -8,7 +8,12 @@ https://www.tldraw.com/r/bQhuH_q9lF8Oi2Fy5STSX?viewport=-5,-113,2170,1174&page=p
 
 ## Set up a local environment
 
-Install mysql and php.
+Install mysql, php and composer.
+
+Install php dependencies:
+```
+composer install
+```
 
 Configure DB conection in `config.php`.
 
