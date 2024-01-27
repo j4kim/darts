@@ -37,9 +37,18 @@ $router->post('logout', function () {
 
 // HTMX routes
 
+$router->get('game/(\d*)', function ($id) use ($templates) {
+    $game = DB::fetch("SELECT * FROM games WHERE id=$id");
+    echo $templates->render('parts/game', [
+        'game' => $game,
+    ]);
+});
+
 $router->get('game/(\d*)/edit', function ($id) use ($templates) {
-    $game = DB::one("SELECT * FROM games WHERE id=$id");
-    echo "<div>Game $id edit form</div>";
+    $game = DB::fetch("SELECT * FROM games WHERE id=$id");
+    echo $templates->render('parts/game-edit', [
+        'game' => $game,
+    ]);
 });
 
 $router->run();
