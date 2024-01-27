@@ -1,5 +1,8 @@
 <?php
-$pdo = require_once __DIR__ . '/../db/connect.php';
+
+use J4kim\Darts\DB;
+
+$pdo = DB::connect();
 
 $tournamentId = @$_GET['tournament'];
 

@@ -7,8 +7,7 @@ class Auth
     public static function login(string $username, string $password): bool
     {
         $hash = md5($password);
-        /** @var PDO $pdo */
-        $pdo = require_once __DIR__ . '/../db/connect.php';
+        $pdo = DB::connect();
         $query = "SELECT COUNT(*) FROM users WHERE username=? AND password=?";
         $stmt = $pdo->prepare($query);
         $stmt->execute([$username, $hash]);
