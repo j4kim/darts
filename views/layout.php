@@ -9,9 +9,9 @@
 <body>
     <main class="m-3">
         <div class="w-full sm:w-60">
-            <?php include(__DIR__ . "/header.php") ?>
+            <?php include(__DIR__ . "/parts/header.php") ?>
         </div>
-        <?php include(__DIR__ . "/games.php") ?>
+        <?= $this->section('content') ?>
     </main>
 </body>
 </html>
