@@ -1,12 +1,13 @@
 <?php
 
+use Bramus\Router\Router;
 use J4kim\Darts\Auth;
 
 require __DIR__ . '/../vendor/autoload.php';
 
 session_start();
 
-$router = new \Bramus\Router\Router();
+$router = new Router();
 
 $router->get('/', function () {
     require '../views/home.php';
