@@ -1,13 +1,26 @@
-<div class="card bg-base-300 shadow-xl" hx-target="this" hx-swap="outerHTML">
+<form
+    class="card bg-base-200 shadow-md"
+    hx-target="this"
+    hx-swap="outerHTML"
+    hx-post="/game/<?=$game['id']?>"
+>
     <div class="card-body">
         <h2 class="card-title">
-            Partie <span class="opacity-50"><?= $game['id'] ?></span>
-            du <span><?= (new DateTime($game['date']))->format("d.m.Y") ?></span>
+            Partie <span class="opacity-50"><?= $game['id'] ?></span> du
+            <input
+                type="datetime-local"
+                class="input"
+                name="date"
+                value="<?= (new DateTime($game['date']))->format("Y-m-d\TH:i") ?>"
+            />
         </h2>
         <div class="card-actions justify-end">
-            <button class="btn btn-primary" hx-get="/game/<?=$game['id']?>" >
-                Fermer
+            <button class="btn" hx-get="/game/<?=$game['id']?>" >
+                Annuler
+            </button>
+            <button class="btn btn-primary">
+                Valider
             </button>
         </div>
     </div>
-</div>
+</form>
