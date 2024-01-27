@@ -12,7 +12,7 @@ $router = new Router();
 $templates = new Engine('../views');
 
 $router->get('/', function () use ($templates) {
-    echo $templates->render('games');
+    echo $templates->render('tournament');
 });
 
 $router->post('login', function () {
