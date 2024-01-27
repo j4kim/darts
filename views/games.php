@@ -3,6 +3,10 @@ $pdo = require_once __DIR__ . '/../db/connect.php';
 
 $tournamentId = @$_GET['tournament'];
 
+if (!$tournamentId) {
+    $tournamentId = $pdo->query("SELECT id FROM tournaments ORDER BY id DESC LIMIT 1")->fetchColumn();
+}
+
 $stmt = $pdo->prepare("SELECT * FROM games WHERE tournament_id=?");
 $stmt->execute([$tournamentId]);
 $games = $stmt->fetchAll();
