@@ -15,7 +15,7 @@
             <div class="w-8 opacity-50">
                 <?= $game['id'] ?>
             </div>
-            <?= $game['date'] ?>
+            <?= (new DateTime($game['date']))->format("d.m.Y") ?>
         </a>
     <?php endforeach; ?>
 </div>
