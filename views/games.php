@@ -2,17 +2,13 @@
 
 use J4kim\Darts\DB;
 
-$pdo = DB::connect();
-
 $tournamentId = @$_GET['tournament'];
 
 if (!$tournamentId) {
-    $tournamentId = $pdo->query("SELECT id FROM tournaments ORDER BY id DESC LIMIT 1")->fetchColumn();
+    $tournamentId = DB::one("SELECT id FROM tournaments ORDER BY id DESC LIMIT 1");
 }
 
-$stmt = $pdo->prepare("SELECT * FROM games WHERE tournament_id=?");
-$stmt->execute([$tournamentId]);
-$games = $stmt->fetchAll();
+$games = DB::all("SELECT * FROM games WHERE tournament_id=?", [$tournamentId]);
 ?>
 
 <h2 class="text-2xl my-4">Parties</h2>

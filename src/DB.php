@@ -24,4 +24,18 @@ class DB {
         }
         return self::$pdoInstance;
     }
+
+    public static function all(string $query, array $params = []): array
+    {
+        $stmt = self::pdo()->prepare($query);
+        $stmt->execute($params);
+        return $stmt->fetchAll();
+    }
+
+    public static function one(string $query, array $params = [])
+    {
+        $stmt = self::pdo()->prepare($query);
+        $stmt->execute($params);
+        return $stmt->fetchColumn();
+    }
 }

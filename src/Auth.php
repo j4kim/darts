@@ -7,11 +7,10 @@ class Auth
     public static function login(string $username, string $password): bool
     {
         $hash = md5($password);
-        $pdo = DB::connect();
-        $query = "SELECT COUNT(*) FROM users WHERE username=? AND password=?";
-        $stmt = $pdo->prepare($query);
-        $stmt->execute([$username, $hash]);
-        $exists = $stmt->fetchColumn();
+        $exists = DB::one(
+            "SELECT COUNT(*) FROM users WHERE username=? AND password=?",
+            [$username, $hash]
+        );
         if ($exists) {
             $_SESSION['username'] = $username;
         }
