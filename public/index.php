@@ -15,6 +15,7 @@
         <div class="w-full sm:w-60">
             <?php include("../views/header.php") ?>
         </div>
+        <?php include("../views/games.php") ?>
     </main>
 </body>
 </html>
