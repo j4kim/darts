@@ -35,4 +35,11 @@ $router->post('logout', function () {
     header('Location: /');
 });
 
+// HTMX routes
+
+$router->get('game/(\d*)/edit', function ($id) use ($templates) {
+    $game = DB::one("SELECT * FROM games WHERE id=$id");
+    echo "<div>Game $id edit form</div>";
+});
+
 $router->run();
