@@ -17,7 +17,7 @@ $router->get('/(\d*)', function ($id) use ($templates) {
         $id = DB::one("SELECT id FROM tournaments ORDER BY id DESC LIMIT 1");
     }
 
-    $games = DB::all("SELECT * FROM games WHERE tournament_id=$id");
+    $games = DB::all("SELECT * FROM games WHERE tournament_id=$id ORDER BY id DESC");
 
     echo $templates->render('tournament', [
         'games' => $games,
