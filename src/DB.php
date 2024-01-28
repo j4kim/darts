@@ -35,6 +35,13 @@ class DB
         return $stmt->$method();
     }
 
+    public static function get(string $query, array $params = [])
+    {
+        $stmt = self::pdo()->prepare($query);
+        $stmt->execute($params);
+        return $stmt->fetchAll(PDO::FETCH_OBJ);
+    }
+
     public static function all(string $query, array $params = []): array
     {
         return self::fetch($query, $params, 'fetchAll');
