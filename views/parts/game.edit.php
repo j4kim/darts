@@ -16,14 +16,14 @@
         </h2>
         <table class="table">
             <tbody>
-                <?php foreach ($participants as $participant) : ?>
+                <?php foreach ($participants->tournamentParticipants as $participant) : ?>
                     <tr>
-                        <td><?= $participant['username'] ?></td>
+                        <td><?= $participant->username ?></td>
                         <td>
                             <input
                                 type="number"
                                 class="input"
-                                name="user_<?= $participant["id"] ?>_rank"
+                                name="user_<?= $participant->user_id ?>_rank"
                             />
                         </td>
                     </tr>
