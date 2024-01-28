@@ -3,6 +3,7 @@
 use Bramus\Router\Router;
 use J4kim\Darts\Auth;
 use J4kim\Darts\DB;
+use J4kim\Darts\Game;
 use League\Plates\Engine;
 
 require __DIR__ . '/../vendor/autoload.php';
@@ -38,23 +39,20 @@ $router->post('logout', function () {
 // HTMX routes
 
 $router->get('game/(\d*)', function ($id) use ($templates) {
-    $game = DB::fetch("SELECT * FROM games WHERE id=$id");
     echo $templates->render('parts/game', [
-        'game' => $game,
+        'game' => Game::find($id),
     ]);
 });
 
 $router->get('game/(\d*)/edit', function ($id) use ($templates) {
-    $game = DB::fetch("SELECT * FROM games WHERE id=$id");
     echo $templates->render('parts/game-edit', [
-        'game' => $game,
+        'game' => Game::find($id),
     ]);
 });
 
 $router->post('game/(\d*)', function ($id) use ($templates) {
     if ($_POST['date']) {
-        $stmt = DB::pdo()->prepare("UPDATE games SET date=? WHERE id=?");
-        $stmt->execute([$_POST['date'], $id]);
+        Game::update($id, 'date', $_POST['date']);
     }
     header('Location: /game/' . $id);
 });

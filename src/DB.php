@@ -4,7 +4,8 @@ namespace J4kim\Darts;
 
 use PDO;
 
-class DB {
+class DB
+{
     private static $pdoInstance;
 
     public static function connect(): PDO
