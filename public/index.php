@@ -46,22 +46,22 @@ $router->get('/game/(\d*)', function ($id) use ($templates) {
     ]);
 });
 
-$router->get('/game/(\d*)/edit', function ($id) use ($templates) {
+$echoGameEditForm = function ($id) use ($templates) {
     echo $templates->render('parts/game.edit', [
         'game' => Game::find($id),
     ]);
-});
+};
+
+$router->get('/game/(\d*)/edit', $echoGameEditForm);
 
 $router->post('/game/(\d*)', function ($id) {
     Game::update($id, $_POST);
     header('Location: /game/' . $id);
 });
 
-$router->post('/game/new/(\d*)', function ($tournamentId) use ($templates) {
+$router->post('/game/new/(\d*)', function ($tournamentId) use ($echoGameEditForm) {
     $id = Game::create($tournamentId);
-    echo $templates->render('parts/game.edit', [
-        'game' => Game::find($id),
-    ]);
+    $echoGameEditForm($id);
 });
 
 $router->delete('/game/(\d*)', function ($id) {
