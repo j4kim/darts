@@ -16,4 +16,12 @@ class Game
         );
         return $stmt->execute([$data["date"], $data["notes"], $id]);
     }
+
+    public static function create(int $tournamentId)
+    {
+        $stmt = DB::pdo()->prepare(
+            "INSERT INTO games (tournament_id, date) VALUES (?, NOW())"
+        );
+        return $stmt->execute([$tournamentId]);
+    }
 }
