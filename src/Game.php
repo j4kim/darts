@@ -9,9 +9,11 @@ class Game
         return DB::fetch("SELECT * FROM games WHERE id=$id");
     }
 
-    public static function update($id, $column, $value)
+    public static function update(int $id, array $data)
     {
-        $stmt = DB::pdo()->prepare("UPDATE games SET $column=? WHERE id=?");
-        return $stmt->execute([$value, $id]);
+        $stmt = DB::pdo()->prepare(
+            "UPDATE games SET date=?, notes=? WHERE id=?"
+        );
+        return $stmt->execute([$data["date"], $data["notes"], $id]);
     }
 }
