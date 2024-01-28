@@ -47,7 +47,7 @@ $router->get('/game/(\d*)', function ($id) use ($templates) {
 });
 
 $router->get('/game/(\d*)/edit', function ($id) use ($templates) {
-    echo $templates->render('parts/game-edit', [
+    echo $templates->render('parts/game.edit', [
         'game' => Game::find($id),
     ]);
 });
