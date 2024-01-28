@@ -51,8 +51,8 @@ $router->get('game/(\d*)/edit', function ($id) use ($templates) {
 });
 
 $router->post('game/(\d*)', function ($id) use ($templates) {
-    if ($_POST['date']) {
-        Game::update($id, 'date', $_POST['date']);
+    foreach($_POST as $key => $value) {
+        Game::update($id, $key, $value);
     }
     header('Location: /game/' . $id);
 });
