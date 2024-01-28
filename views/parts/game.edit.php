@@ -16,7 +16,7 @@
         </h2>
         <table class="table">
             <tbody>
-                <?php foreach ($tournamentParticipants as $participant) : ?>
+                <?php foreach ($game->tournamentParticipants as $participant) : ?>
                     <tr>
                         <td><?= $participant->username ?></td>
                         <td>
@@ -24,6 +24,7 @@
                                 type="number"
                                 class="input"
                                 name="user_<?= $participant->user_id ?>_rank"
+                                value="<?= $game->getUserRank($participant->user_id) ?>"
                             />
                         </td>
                     </tr>

@@ -76,10 +76,9 @@ class App
     public function echoGameEditForm(int $gameId)
     {
         $game = Game::find($gameId);
+        $game->loadParticipants();
         echo $this->templates->render('parts/game.edit', [
             'game' => $game,
-            'gameParticipants' => $game->participants(),
-            'tournamentParticipants' => Tournament::getParticipants($game->tournament_id),
         ]);
     }
 }

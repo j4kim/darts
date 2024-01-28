@@ -12,6 +12,9 @@ class Game
     public string $date;
     public ?string $notes;
 
+    public array $gameParticipants;
+    public array $tournamentParticipants;
+
     public static function find($id): Game
     {
         $sql = "SELECT * FROM games WHERE id=$id";
@@ -51,8 +54,18 @@ class Game
         return $this->dateTime()->format("d.m.Y");
     }
 
-    public function participants(): array
+    public function loadParticipants()
     {
-        return DB::get("SELECT * FROM game_participants WHERE game_id=$this->id");
+        $this->gameParticipants = DB::get("SELECT * FROM game_participants WHERE game_id=$this->id");
+        $this->tournamentParticipants = Tournament::getParticipants($this->tournament_id);
+    }
+
+    public function getUserRank(int $userId): ?int
+    {
+        $filtered = array_values(array_filter(
+            $this->gameParticipants,
+            fn($p) => $p->user_id == $userId
+        ));
+        return @$filtered[0]->rank;
     }
 }
