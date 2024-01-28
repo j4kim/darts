@@ -8,8 +8,8 @@ class Tournament
     public array $games = [];
     public array $participants = [];
 
-    const GETLAST = "SELECT id FROM tournaments ORDER BY id DESC LIMIT 1";
-    const GETBYID = "SELECT * FROM games WHERE tournament_id=? ORDER BY date DESC";
+    const GETLASTID = "SELECT id FROM tournaments ORDER BY id DESC LIMIT 1";
+    const GETGAMES = "SELECT * FROM games WHERE tournament_id=? ORDER BY date DESC";
     const GETPARTICIPANTS = "SELECT u.username
                              FROM tournament_participants as tp
                              INNER JOIN users as u on tp.user_id = u.id
@@ -18,12 +18,12 @@ class Tournament
     public function __construct(int $id)
     {
         $this->id = $id;
-        $this->games = DB::all(self::GETBYID, [$this->id]);
+        $this->games = DB::all(self::GETGAMES, [$this->id]);
         $this->participants = DB::all(self::GETPARTICIPANTS, [$this->id]);
     }
 
     public static function getLastId()
     {
-        return DB::one(self::GETLAST);
+        return DB::one(self::GETLASTID);
     }
 }
