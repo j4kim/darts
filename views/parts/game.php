@@ -7,4 +7,5 @@
         <?= $game['id'] ?>
     </div>
     <?= (new DateTime($game['date']))->format("d.m.Y") ?>
+    <span class="htmx-indicator loading"></span>
 </a>

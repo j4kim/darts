@@ -14,7 +14,8 @@
                 value="<?= (new DateTime($game['date']))->format("Y-m-d\TH:i") ?>"
             />
         </h2>
-        <div class="card-actions justify-end">
+        <div class="card-actions justify-end items-center mt-4">
+            <span class="htmx-indicator loading"></span>
             <button class="btn" hx-get="/game/<?=$game['id']?>" >
                 Annuler
             </button>
