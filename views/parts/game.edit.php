@@ -23,7 +23,7 @@
         </p>
         <div class="card-actions justify-end items-center">
             <span class="htmx-indicator loading"></span>
-            <button class="btn" hx-get="/game/<?=$game['id']?>" >
+            <button class="btn btn-ghost" hx-get="/game/<?=$game['id']?>" hx-indicator="previous .htmx-indicator">
                 Annuler
             </button>
             <button class="btn btn-primary">
