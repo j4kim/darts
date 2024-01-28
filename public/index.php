@@ -19,7 +19,9 @@ $router->get('/', function () {
 });
 
 $router->get('/(\d+)', function ($id) use ($templates) {
-    echo $templates->render('tournament', ['id' => $id]);
+    echo $templates->render('tournament', [
+        'tournament' => new Tournament($id)
+    ]);
 });
 
 $router->get('/login', function () use ($templates) {
