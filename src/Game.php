@@ -51,11 +51,8 @@ class Game
         return $this->dateTime()->format("d.m.Y");
     }
 
-    public function participants(): object
+    public function participants(): array
     {
-        return (object) [
-            'tournamentParticipants' => Tournament::getParticipants($this->tournament_id),
-            'gameParticipants' => DB::get("SELECT * FROM game_participants WHERE game_id=$this->id")
-        ];
+        return DB::get("SELECT * FROM game_participants WHERE game_id=$this->id");
     }
 }

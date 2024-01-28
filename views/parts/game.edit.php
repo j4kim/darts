@@ -16,7 +16,7 @@
         </h2>
         <table class="table">
             <tbody>
-                <?php foreach ($participants->tournamentParticipants as $participant) : ?>
+                <?php foreach ($tournamentParticipants as $participant) : ?>
                     <tr>
                         <td><?= $participant->username ?></td>
                         <td>

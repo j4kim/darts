@@ -78,7 +78,8 @@ class App
         $game = Game::find($gameId);
         echo $this->templates->render('parts/game.edit', [
             'game' => $game,
-            'participants' => $game->participants(),
+            'gameParticipants' => $game->participants(),
+            'tournamentParticipants' => Tournament::getParticipants($game->tournament_id),
         ]);
     }
 }
