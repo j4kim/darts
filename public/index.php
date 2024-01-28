@@ -14,16 +14,7 @@ $router = new Router();
 $templates = new Engine('../views');
 
 $router->get('/(\d*)', function ($id) use ($templates) {
-    if (!$id) {
-        $id = DB::one("SELECT id FROM tournaments ORDER BY id DESC LIMIT 1");
-    }
-
-    $games = DB::all("SELECT * FROM games WHERE tournament_id=$id ORDER BY date DESC");
-
-    echo $templates->render('tournament', [
-        'games' => $games,
-        'authenticated' => Auth::check(),
-    ]);
+    echo $templates->render('tournament', ['id' => $id]);
 });
 
 $router->get('login', function () use ($templates) {
