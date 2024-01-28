@@ -14,20 +14,23 @@
                 value="<?= $game->dateTime()->format("Y-m-d\TH:i") ?>"
             />
         </h2>
-        <table class="table">
+        <table class="table" x-data='{
+            gameParticipants: <?= json_encode($gameParticipants) ?>,
+            tournamentParticipants: <?= json_encode($tournamentParticipants) ?>,
+        }'>
             <tbody>
-                <?php foreach ($tournamentParticipants as $participant) : ?>
+                <template x-for="p in tournamentParticipants">
                     <tr>
-                        <td><?= $participant->username ?></td>
+                        <td x-text="p.username"></td>
                         <td>
                             <input
                                 type="number"
                                 class="input"
-                                name="user_<?= $participant->user_id ?>_rank"
+                                x-bind:name="`user_${p.user_id}_rank`"
                             />
                         </td>
                     </tr>
-                <?php endforeach; ?>
+                </template>
             </tbody>
         </table>
         <p>
