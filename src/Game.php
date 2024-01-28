@@ -2,11 +2,20 @@
 
 namespace J4kim\Darts;
 
+use PDO;
+
 class Game
 {
-    public static function find($id)
+    public int $id;
+    public int $tournament_id;
+    public string $date;
+    public ?string $notes;
+
+    public static function find($id): Game
     {
-        return DB::fetch("SELECT * FROM games WHERE id=$id");
+        $sql = "SELECT * FROM games WHERE id=$id";
+        $stmt = DB::pdo()->query($sql, PDO::FETCH_CLASS, self::class);
+        return $stmt->fetch();
     }
 
     public static function update(int $id, array $data)

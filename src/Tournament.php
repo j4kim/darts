@@ -2,6 +2,8 @@
 
 namespace J4kim\Darts;
 
+use PDO;
+
 class Tournament
 {
     public int $id;
@@ -18,7 +20,9 @@ class Tournament
     public function __construct(int $id)
     {
         $this->id = $id;
-        $this->games = DB::all(self::GETGAMES, [$this->id]);
+        $stmt = DB::pdo()->prepare(self::GETGAMES);
+        $stmt->execute([$id]);
+        $this->games = $stmt->fetchAll(PDO::FETCH_CLASS, Game::class);
         $this->participants = self::getParticipants($this->id);
     }
 
