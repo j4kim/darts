@@ -8,10 +8,8 @@
     <title>Darts</title>
 </head>
 <body>
-    <main class="m-3">
-        <div class="w-full sm:w-60">
-            <?php $this->insert('parts/header') ?>
-        </div>
+    <?php $this->insert('parts/header') ?>
+    <main class="m-4">
         <?= $this->section('content') ?>
     </main>
 </body>

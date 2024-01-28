@@ -1,5 +1,7 @@
+<?php $this->layout('layout'); ?>
+
 <form
-    class="flex flex-col gap-3"
+    class="flex flex-col gap-3 sm:w-60 mx-auto mt-8"
     method="POST"
     action="login"
 >

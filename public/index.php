@@ -26,12 +26,16 @@ $router->get('/(\d*)', function ($id) use ($templates) {
     ]);
 });
 
+$router->get('login', function () use ($templates) {
+    echo $templates->render('login');
+});
+
 $router->post('login', function () {
     Auth::login(...$_POST);
     header('Location: /');
 });
 
-$router->post('logout', function () {
+$router->get('logout', function () {
     Auth::logout();
     header('Location: /');
 });

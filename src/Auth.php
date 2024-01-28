@@ -28,6 +28,6 @@ class Auth
 
     public static function username(): string
     {
-        return $_SESSION['username'];
+        return @$_SESSION['username'] ?? '';
     }
 }
