@@ -29,8 +29,8 @@ CREATE TABLE tournament_participants (
 DROP TABLE IF EXISTS games;
 CREATE TABLE games (
     id INT UNSIGNED NOT NULL AUTO_INCREMENT,
-    tournament_id INT UNSIGNED,
-    date DATETIME,
+    tournament_id INT UNSIGNED NOT NULL,
+    date DATETIME NOT NULL,
     notes TEXT,
     PRIMARY KEY (id)
 );
