@@ -66,7 +66,7 @@ $router->post('/game/new/(\d*)', function ($tournamentId) use ($templates) {
 
 $router->delete('/game/(\d*)', function ($id) {
     Game::delete($id);
-    echo "Partie supprimée";
+    echo "<div>Partie $id supprimée</div>";
 });
 
 $router->run();
