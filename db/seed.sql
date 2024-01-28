@@ -20,9 +20,9 @@ values
 insert into games
     (tournament_id, date)
 values
-    (1, '2024-01-20'),
-    (1, '2024-01-20'),
-    (1, '2024-01-20');
+    (1, '2024-01-20 14:00:00'),
+    (1, '2024-01-20 15:00:00'),
+    (1, '2024-01-20 16:00:00');
 
 insert into game_participants
     (game_id, user_id, `rank`)
