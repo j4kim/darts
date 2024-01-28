@@ -4,7 +4,8 @@
     "type": "project",
     "require": {
         "bramus/router": "^1.6",
-        "league/plates": "^3.5"
+        "league/plates": "^3.5",
+        "illuminate/database": "^10.42"
     },
     "autoload": {
         "psr-4": {
