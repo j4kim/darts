@@ -2,8 +2,8 @@
 
 use Bramus\Router\Router;
 use J4kim\Darts\Auth;
-use J4kim\Darts\DB;
 use J4kim\Darts\Game;
+use J4kim\Darts\Tournament;
 use League\Plates\Engine;
 
 require __DIR__ . '/../vendor/autoload.php';
@@ -13,7 +13,12 @@ session_start();
 $router = new Router();
 $templates = new Engine('../views');
 
-$router->get('/(\d*)', function ($id) use ($templates) {
+$router->get('/', function () {
+    $id = Tournament::getLastId();
+    header("Location: /$id");
+});
+
+$router->get('/(\d+)', function ($id) use ($templates) {
     echo $templates->render('tournament', ['id' => $id]);
 });
 
