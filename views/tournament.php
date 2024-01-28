@@ -5,7 +5,7 @@
     <?php if ($authenticated): ?>
         <form action="/newgame.php" method="POST">
             <input type="hidden" name="tournament_id" value="<?= $tournamentId ?>">
-            <button class="btn btn-primary w-full" type="submit">
+            <button class="btn btn-primary w-full text-xl" type="submit">
                 +
             </button>
         </form>
