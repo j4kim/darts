@@ -57,9 +57,11 @@ $router->post('/game/(\d*)', function ($id) {
     header('Location: /game/' . $id);
 });
 
-$router->post('/game/new/(\d*)', function ($tournamentId) {
-    Game::create($tournamentId);
-    header('Location: /');
+$router->post('/game/new/(\d*)', function ($tournamentId) use ($templates) {
+    $id = Game::create($tournamentId);
+    echo $templates->render('parts/game.edit', [
+        'game' => Game::find($id),
+    ]);
 });
 
 $router->run();
