@@ -73,10 +73,13 @@ class App
         });
     }
 
-    public function echoGameEditForm($id)
+    public function echoGameEditForm(int $gameId)
     {
+        $game = Game::find($gameId);
+        $participants = Tournament::getParticipants($game['tournament_id']);
         echo $this->templates->render('parts/game.edit', [
-            'game' => Game::find($id),
+            'game' => $game,
+            'participants' => $participants,
         ]);
     }
 }

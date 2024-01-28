@@ -14,6 +14,22 @@
                 value="<?= (new DateTime($game['date']))->format("Y-m-d\TH:i") ?>"
             />
         </h2>
+        <table class="table">
+            <tbody>
+                <?php foreach ($participants as $participant) : ?>
+                    <tr>
+                        <td><?= $participant['username'] ?></td>
+                        <td>
+                            <input
+                                type="number"
+                                class="input"
+                                name="user_<?= $participant["id"] ?>_rank"
+                            />
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
         <p>
             <textarea
                 class="textarea w-full"
