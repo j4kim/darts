@@ -25,4 +25,9 @@ class Game
         $stmt->execute([$tournamentId]);
         return DB::pdo()->lastInsertId();
     }
+
+    public static function delete(int $id)
+    {
+        return DB::pdo()->prepare("DELETE FROM games WHERE id=?")->execute([$id]);
+    }
 }
