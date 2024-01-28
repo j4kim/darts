@@ -19,11 +19,16 @@ class Tournament
     {
         $this->id = $id;
         $this->games = DB::all(self::GETGAMES, [$this->id]);
-        $this->participants = DB::all(self::GETPARTICIPANTS, [$this->id]);
+        $this->participants = self::getParticipants($this->id);
     }
 
     public static function getLastId()
     {
         return DB::one(self::GETLASTID);
+    }
+
+    public static function getParticipants(int $id)
+    {
+        return DB::all(self::GETPARTICIPANTS, [$id]);
     }
 }
