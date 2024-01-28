@@ -6,6 +6,6 @@
     <div class="w-8 opacity-50">
         <?= $game->id ?>
     </div>
-    <?= (new DateTime($game->date))->format("d.m.Y") ?>
+    <?= $game->formattedDate() ?>
     <span class="htmx-indicator loading"></span>
 </a>

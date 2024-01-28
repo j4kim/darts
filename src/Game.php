@@ -2,6 +2,7 @@
 
 namespace J4kim\Darts;
 
+use DateTime;
 use PDO;
 
 class Game
@@ -38,5 +39,15 @@ class Game
     public static function delete(int $id)
     {
         return DB::pdo()->prepare("DELETE FROM games WHERE id=?")->execute([$id]);
+    }
+
+    public function dateTime(): DateTime
+    {
+        return new DateTime($this->date);
+    }
+
+    public function formattedDate(): string
+    {
+        return $this->dateTime()->format("d.m.Y");
     }
 }

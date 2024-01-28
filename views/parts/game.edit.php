@@ -11,7 +11,7 @@
                 type="datetime-local"
                 class="input"
                 name="date"
-                value="<?= (new DateTime($game->date))->format("Y-m-d\TH:i") ?>"
+                value="<?= $game->dateTime()->format("Y-m-d\TH:i") ?>"
             />
         </h2>
         <table class="table">
