@@ -52,6 +52,7 @@ $router->get('game/(\d*)/edit', function ($id) use ($templates) {
 
 $router->post('game/(\d*)', function ($id) use ($templates) {
     foreach($_POST as $key => $value) {
+        if (str_starts_with($key, '_')) continue;
         Game::update($id, $key, $value);
     }
     header('Location: /game/' . $id);
