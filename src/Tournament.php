@@ -41,4 +41,20 @@ class Tournament
     {
         return DB::get(self::GETPARTICIPANTS, [$id]);
     }
+
+    public static function addParticipant(int $id, string $username)
+    {
+        $user_id = DB::one(
+            "SELECT id FROM users WHERE username=?", [$username]
+        );
+        if (!$user_id) {
+            DB::pdo()
+                ->prepare("INSERT INTO users (username) VALUES (?)")
+                ->execute([$username]);
+            $user_id = DB::pdo()->lastInsertId();
+        }
+        DB::pdo()
+            ->prepare("INSERT INTO tournament_participants (tournament_id, user_id) VALUES (?, ?)")
+            ->execute([$id, $user_id]);
+    }
 }

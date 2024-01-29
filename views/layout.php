@@ -9,7 +9,7 @@
     <title>Darts</title>
 </head>
 <body>
-    <?php $this->insert('parts/header') ?>
+    <?php $this->insert('parts/header', ['menu' => $this->section('menu')]) ?>
     <main class="m-4">
         <?= $this->section('content') ?>
     </main>

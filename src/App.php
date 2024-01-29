@@ -31,6 +31,12 @@ class App
             ]);
         });
 
+        $this->router->get('/(\d+)/add-participant', function ($id) {
+            $username = $_SERVER['HTTP_HX_PROMPT'];
+            Tournament::addParticipant($id, $username);
+            header("Location: /$id");
+        });
+
         $this->router->get('/login', function () {
             echo $this->templates->render('login');
         });

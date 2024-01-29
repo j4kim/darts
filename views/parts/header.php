@@ -16,6 +16,7 @@
             <?php if (J4kim\Darts\Auth::check()) : ?>
                 <li class="px-4 py-2 opacity-50"><?= J4kim\Darts\Auth::username() ?></li>
                 <li><a href="logout">Se déconnecter</a></li>
+                <?= $menu ?>
             <?php else : ?>
                 <li><a href="login">Se connecter</a></li>
             <?php endif; ?>

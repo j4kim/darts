@@ -8,3 +8,11 @@
     <?php if (J4kim\Darts\Auth::check()) include 'parts/game.new.php' ?>
     <?php foreach ($tournament->games as $game) include 'parts/game.php' ?>
 </div>
+
+<?php $this->start('menu') ?>
+    <li hx-prompt="Nom du joueur">
+        <a href="/<?= $tournament->id ?>/add-participant">
+            Ajouter un joueur
+        </a>
+    </li>
+<?php $this->stop() ?>
