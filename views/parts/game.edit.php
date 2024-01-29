@@ -18,12 +18,8 @@
             <tbody>
                 <?php foreach ($game->tournamentParticipants as $participant) : ?>
                     <tr>
-                        <?php
-                            $rank = $game->getUserRank($participant->user_id);
-                            $checked = $rank ? 'checked' : ''
-                        ?>
                         <td>
-                            <input type="checkbox" class="toggle toggle-primary" <?= $checked ?> />
+                            <input type="checkbox" class="toggle toggle-primary" <?= $participant->rank ? 'checked' : '' ?> />
                         </td>
                         <td><?= $participant->username ?></td>
                         <td>
@@ -31,7 +27,7 @@
                                 type="number"
                                 class="input"
                                 name="user_<?= $participant->user_id ?>_rank"
-                                value="<?= $rank ?>"
+                                value="<?= $participant->rank ?>"
                             />
                         </td>
                     </tr>

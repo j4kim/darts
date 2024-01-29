@@ -57,14 +57,20 @@ class Game
     public function loadParticipants()
     {
         $this->gameParticipants = DB::get("SELECT * FROM game_participants WHERE game_id=$this->id");
-        $this->tournamentParticipants = Tournament::getParticipants($this->tournament_id);
+        $this->tournamentParticipants = array_map(
+            function ($participant) {
+                $participant->rank = $this->getUserRank($participant->user_id);
+                return $participant;
+            },
+            Tournament::getParticipants($this->tournament_id)
+        );
     }
 
     public function getUserRank(int $userId): ?int
     {
         $filtered = array_values(array_filter(
             $this->gameParticipants,
-            fn($p) => $p->user_id == $userId
+            fn ($p) => $p->user_id == $userId
         ));
         return @$filtered[0]->rank;
     }
