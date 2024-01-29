@@ -12,7 +12,11 @@ class Tournament
 
     const GETLASTID = "SELECT id FROM tournaments ORDER BY id DESC LIMIT 1";
     const GETGAMES = "SELECT * FROM games WHERE tournament_id=? ORDER BY date DESC";
-    const GETPARTICIPANTS = "SELECT u.username, u.id as user_id
+    const GETPARTICIPANTS = "SELECT u.username,
+                                    u.id as user_id,
+                                    tp.score,
+                                    tp.played,
+                                    tp.wins
                              FROM tournament_participants as tp
                              INNER JOIN users as u on tp.user_id = u.id
                              WHERE tp.tournament_id=?";
