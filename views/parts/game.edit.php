@@ -16,6 +16,9 @@
         </h2>
         <table class="table" x-data='{
             participants: <?= json_encode($game->tournamentParticipants) ?>,
+            get nextRank() {
+                return Math.max(...this.participants.map(p => p.rank)) + 1;
+            },
         }'>
             <tbody>
                 <template x-for="p in participants">
@@ -25,6 +28,7 @@
                                 type="checkbox"
                                 class="toggle toggle-primary"
                                 :checked="!!p.rank"
+                                @click="p.rank = p.rank ? null : nextRank"
                             />
                         </td>
                         <td x-text="p.username"></td>
