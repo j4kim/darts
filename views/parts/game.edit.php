@@ -14,24 +14,30 @@
                 value="<?= $game->dateTime()->format("Y-m-d\TH:i") ?>"
             />
         </h2>
-        <table class="table">
+        <table class="table" x-data='{
+            tournamentParticipants: <?= json_encode($game->tournamentParticipants) ?>,
+        }'>
             <tbody>
-                <?php foreach ($game->tournamentParticipants as $participant) : ?>
+                <template x-for="p in tournamentParticipants">
                     <tr>
                         <td>
-                            <input type="checkbox" class="toggle toggle-primary" <?= $participant->rank ? 'checked' : '' ?> />
+                            <input
+                                type="checkbox"
+                                class="toggle toggle-primary"
+                                :checked="!!p.rank"
+                            />
                         </td>
-                        <td><?= $participant->username ?></td>
+                        <td x-text="p.username"></td>
                         <td>
                             <input
                                 type="number"
                                 class="input"
-                                name="user_<?= $participant->user_id ?>_rank"
-                                value="<?= $participant->rank ?>"
+                                :name="`user_${p.user_id}_rank`"
+                                :value="p.rank"
                             />
                         </td>
                     </tr>
-                <?php endforeach; ?>
+                </template>
             </tbody>
         </table>
         <p>
