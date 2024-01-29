@@ -31,7 +31,7 @@ class App
             ]);
         });
 
-        $this->router->get('/(\d+)/add-participant', function ($id) {
+        $this->router->post('/(\d+)/add-participant', function ($id) {
             $username = $_SERVER['HTTP_HX_PROMPT'];
             Tournament::addParticipant($id, $username);
             header("Location: /$id");

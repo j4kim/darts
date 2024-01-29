@@ -11,8 +11,8 @@
 
 <?php $this->start('menu') ?>
     <li hx-prompt="Nom du joueur">
-        <a href="/<?= $tournament->id ?>/add-participant">
-            Ajouter un joueur
-        </a>
+        <form method="POST" action="/<?= $tournament->id ?>/add-participant">
+            <button>Ajouter un joueur</button>
+        </form>
     </li>
 <?php $this->stop() ?>
