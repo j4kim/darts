@@ -48,9 +48,7 @@ class App
         // HTMX routes
 
         $this->router->get('/game/(\d+)', function ($id) {
-            echo $this->templates->render('parts/game', [
-                'game' => Game::find($id),
-            ]);
+            $this->echoGameItem($id);
         });
 
         $this->router->get('/game/(\d+)/edit', function ($id) {
@@ -59,7 +57,7 @@ class App
 
         $this->router->post('/game/(\d+)', function ($id) {
             Game::update($id, $_POST);
-            header('Location: /game/' . $id);
+            $this->echoGameItem($id);
         });
 
         $this->router->post('/game/new/(\d+)', function ($tournamentId) {
@@ -71,6 +69,13 @@ class App
             Game::delete($id);
             echo "<div>Partie $id supprimée</div>";
         });
+    }
+
+    public function echoGameItem(int $gameId)
+    {
+        echo $this->templates->render('parts/game', [
+            'game' => Game::find($gameId),
+        ]);
     }
 
     public function echoGameEditForm(int $gameId)
