@@ -1987,6 +1987,10 @@ html {
   display: table;
 }
 
+.hidden {
+  display: none;
+}
+
 .h-4 {
   height: 1rem;
 }
@@ -2029,6 +2033,10 @@ html {
 
 .gap-4 {
   gap: 1rem;
+}
+
+.overflow-auto {
+  overflow: auto;
 }
 
 .rounded-box {
@@ -2093,7 +2101,21 @@ html {
 }
 
 @media (min-width: 640px) {
+  .sm\:table-header-group {
+    display: table-header-group;
+  }
+
+  .sm\:hidden {
+    display: none;
+  }
+
   .sm\:w-60 {
     width: 15rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .md\:block {
+    display: block;
   }
 }
