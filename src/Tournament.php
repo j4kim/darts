@@ -57,4 +57,11 @@ class Tournament
             ->prepare("INSERT INTO tournament_participants (tournament_id, user_id) VALUES (?, ?)")
             ->execute([$id, $user_id]);
     }
+
+    public static function removeParticipant(int $id, int $userId)
+    {
+        DB::pdo()
+            ->prepare("DELETE FROM tournament_participants WHERE tournament_id=? AND user_id=?")
+            ->execute([$id, $userId]);
+    }
 }

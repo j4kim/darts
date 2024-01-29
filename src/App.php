@@ -37,6 +37,10 @@ class App
             header("Location: /$id");
         });
 
+        $this->router->delete('/(\d+)/remove-participant/(\d+)', function (int $id, int $userId) {
+            Tournament::removeParticipant($id, $userId);
+        });
+
         $this->router->get('/login', function () {
             echo $this->templates->render('login');
         });

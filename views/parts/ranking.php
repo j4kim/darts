@@ -19,7 +19,12 @@
     </thead>
     <tbody>
         <?php foreach ($tournament->participants as $participant) : ?>
-            <tr>
+            <tr
+                hx-delete="/<?= $tournament->id ?>/remove-participant/<?= $participant->user_id ?>"
+                hx-trigger="long-press"
+                hx-confirm="Supprimer <?= $participant->username ?> ?"
+                data-long-press-delay="500"
+            >
                 <td><?= $participant->username ?></td>
                 <td><?= $participant->score ?></td>
                 <td><?= $participant->played ?></td>
