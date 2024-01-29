@@ -10,12 +10,12 @@ values
 insert into tournaments values ();
 
 insert into tournament_participants
-    (tournament_id, user_id)
+    (tournament_id, user_id, score, played)
 values
-    (1, 1),
-    (1, 2),
-    (1, 3),
-    (1, 4);
+    (1, 1, 23, 3),
+    (1, 2, 19, 3),
+    (1, 3, 15, 3),
+    (1, 4, 0, 0);
 
 insert into games
     (tournament_id, date)
