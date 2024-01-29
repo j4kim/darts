@@ -21,6 +21,7 @@ CREATE TABLE tournament_participants (
     user_id INT UNSIGNED NOT NULL,
     score INT UNSIGNED NOT NULL DEFAULT 0,
     played INT UNSIGNED NOT NULL DEFAULT 0,
+    wins INT UNSIGNED NOT NULL DEFAULT 0,
     FOREIGN KEY (tournament_id) REFERENCES tournaments(id) ON DELETE CASCADE,
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
     UNIQUE (tournament_id, user_id)
