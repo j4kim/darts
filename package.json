@@ -3,7 +3,8 @@
   "version": "0.1.0",
   "description": "ptite féchette ?",
   "scripts": {
-    "lezgo": "tailwindcss -i input.css -o public/output.css --watch"
+    "lezgo": "tailwindcss -i input.css -o public/output.css --watch",
+    "build": "tailwindcss -i input.css -o public/output.css --minify"
   },
   "devDependencies": {
     "daisyui": "^4.6.0",
