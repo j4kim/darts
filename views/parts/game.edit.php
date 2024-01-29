@@ -15,10 +15,10 @@
             />
         </h2>
         <table class="table" x-data='{
-            tournamentParticipants: <?= json_encode($game->tournamentParticipants) ?>,
+            participants: <?= json_encode($game->tournamentParticipants) ?>,
         }'>
             <tbody>
-                <template x-for="p in tournamentParticipants">
+                <template x-for="p in participants">
                     <tr>
                         <td>
                             <input
@@ -33,7 +33,9 @@
                                 type="number"
                                 class="input"
                                 :name="`user_${p.user_id}_rank`"
-                                :value="p.rank"
+                                x-model="p.rank"
+                                min="1"
+                                :max="participants.length"
                             />
                         </td>
                     </tr>
