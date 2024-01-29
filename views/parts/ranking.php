@@ -15,7 +15,7 @@
                 <td><?= $participant->score ?></td>
                 <td><?= $participant->played ?></td>
                 <td><?= $participant->wins ?></td>
-                <td><?= $participant->played ? round($participant->score / $participant->played) : '' ?></td>
+                <td><?= round($participant->score_per_game ?? 0) ?></td>
             </tr>
         <?php endforeach ?>
     </tbody>

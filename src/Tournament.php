@@ -16,10 +16,12 @@ class Tournament
                                     u.id as user_id,
                                     tp.score,
                                     tp.played,
-                                    tp.wins
+                                    tp.wins,
+                                    tp.score / tp.played as score_per_game
                              FROM tournament_participants as tp
                              INNER JOIN users as u on tp.user_id = u.id
-                             WHERE tp.tournament_id=?";
+                             WHERE tp.tournament_id=?
+                             ORDER BY score DESC, score_per_game DESC, wins DESC";
 
     public function __construct(int $id)
     {
