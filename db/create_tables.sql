@@ -17,10 +17,8 @@ CREATE TABLE tournaments (
 
 DROP TABLE IF EXISTS tournament_participants;
 CREATE TABLE tournament_participants (
-    id INT UNSIGNED NOT NULL AUTO_INCREMENT,
     tournament_id INT UNSIGNED NOT NULL,
     user_id INT UNSIGNED NOT NULL,
-    PRIMARY KEY (id),
     FOREIGN KEY (tournament_id) REFERENCES tournaments(id) ON DELETE CASCADE,
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
     UNIQUE (tournament_id, user_id)
@@ -37,11 +35,9 @@ CREATE TABLE games (
 
 DROP TABLE IF EXISTS game_participants;
 CREATE TABLE game_participants (
-    id INT UNSIGNED NOT NULL AUTO_INCREMENT,
     game_id INT UNSIGNED NOT NULL,
     user_id INT UNSIGNED NOT NULL,
     `rank` INT UNSIGNED,
-    PRIMARY KEY (id),
     FOREIGN KEY (game_id) REFERENCES games(id) ON DELETE CASCADE,
     FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE,
     UNIQUE (game_id, user_id)
