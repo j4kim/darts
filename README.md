@@ -1,6 +1,6 @@
 # Darts
 
-Simple and stupid Darts championship manager using PHP and MySQL.
+Simple and stupid Darts championship manager using PHP, HTMX and MySQL.
 
 ## Wireframe
 
@@ -17,24 +17,14 @@ composer install
 
 Configure DB conection in `config.php`.
 
-Create database darts:
+Create database:
 ```
-mysql --password=sandwich --execute="create database darts"
-```
-
-Create tables:
-```
-mysql --password=sandwich darts < db/create_tables.sql
-```
-
-Seed example data:
-```
-mysql --password=sandwich darts < db/seed.sql
+composer migrate
 ```
 
 Run local server:
 ```
-php -S localhost:1234 -t public
+composer serve
 ```
 
 Install js dependencies:
@@ -44,7 +34,5 @@ npm install
 
 Run tailwind:
 ```
-npx tailwindcss -i ./input.css -o ./public/output.css --watch
-# or
 npm run lezgo
 ```
