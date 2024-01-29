@@ -36,7 +36,7 @@
                             <input
                                 type="number"
                                 class="input"
-                                :name="`user_${p.user_id}_rank`"
+                                :name="`ranks[${p.user_id}]`"
                                 x-model="p.rank"
                                 min="1"
                                 :max="participants.length"

@@ -24,10 +24,17 @@ class Game
 
     public static function update(int $id, array $data)
     {
-        $stmt = DB::pdo()->prepare(
+        DB::pdo()->prepare(
             "UPDATE games SET date=?, notes=? WHERE id=?"
-        );
-        return $stmt->execute([$data["date"], $data["notes"], $id]);
+        )->execute([$data["date"], $data["notes"], $id]);
+
+        DB::pdo()->exec("DELETE FROM game_participants WHERE game_id=$id");
+        foreach ($data["ranks"] as $user_id => $rank) {
+            if (!$rank) continue;
+            DB::pdo()->prepare(
+                "INSERT INTO game_participants (game_id, user_id, `rank`) VALUES (?, ?, ?)"
+            )->execute([$id, $user_id, $rank]);
+        }
     }
 
     public static function create(int $tournamentId): int
