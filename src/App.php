@@ -87,11 +87,7 @@ class App
             if ($hookId != '457884403') {
                 return;
             }
-            echo shell_exec("pwd");
-            echo shell_exec("ls -la ..");
-            echo shell_exec("cd ..");
-            echo shell_exec("ls -la");
-            echo shell_exec("git pull origin master");
+            echo shell_exec("cd .. && git pull origin master 2>&1");
         });
     }
 
