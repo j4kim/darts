@@ -1,3 +1,4 @@
 node_modules
 /vendor/
 public/output.css
+config.php
