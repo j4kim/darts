@@ -88,7 +88,7 @@ class App
                 'post' => $_POST,
                 'server' => $_SERVER,
             ]));
-            $output = shell_exec('git pull');
+            $output = shell_exec('la -la');
             error_log('>>> Webhook output ' . $output);
         });
     }
