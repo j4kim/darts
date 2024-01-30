@@ -41,3 +41,7 @@ Run tailwind:
 ```
 npm run lezgo
 ```
+
+## Deployment
+
+Deployment is performed via a Github Webhook making a post request to `/webhook`. All pushes to branch master should produce an update on the server.
