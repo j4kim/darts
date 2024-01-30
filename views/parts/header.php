@@ -12,6 +12,7 @@
         <ul 
             hx-boost="true"
             class="mt-2 p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52"
+            tabindex="0"
         >
             <?php if (J4kim\Darts\Auth::check()) : ?>
                 <li class="px-4 py-2 opacity-50"><?= J4kim\Darts\Auth::username() ?></li>
