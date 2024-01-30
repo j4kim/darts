@@ -87,7 +87,7 @@ class App
             if ($hookId != '457884403') {
                 return;
             }
-            echo shell_exec("cd .. && git pull origin master 2>&1");
+            echo shell_exec("cd .. && git pull 2>&1");
         });
     }
 
