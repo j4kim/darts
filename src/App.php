@@ -83,13 +83,15 @@ class App
         // Webhook
 
         $this->router->post('/webhook', function () {
+            $pusher = $_POST['pusher'];
+            $headers = getallheaders();
             error_log('>>> Webhook received ' . json_encode([
-                'headers' => getallheaders(),
-                'post' => $_POST,
-                'server' => $_SERVER,
+                'headers' => $headers,
+                'pusher' => $pusher,
             ]));
-            $output = shell_exec('la -la');
+            $output = \shell_exec('ls -la');
             error_log('>>> Webhook output ' . $output);
+            print_r(compact('output', 'pusher', 'headers'));
         });
     }
 
