@@ -15,6 +15,11 @@ Install php dependencies:
 composer install
 ```
 
+Create config from example:
+```
+cp config.example.php config.php
+```
+
 Configure DB conection in `config.php`.
 
 Create database:
