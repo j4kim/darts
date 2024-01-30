@@ -44,4 +44,4 @@ npm run lezgo
 
 ## Deployment
 
-Made via Github Webhook making a post request to /webhook. all pushes to master branch should produce an update on the server.
+Deployment is performed via a Github Webhook making a post request to `/webhook`. All pushes to branch master should produce an update on the server.
