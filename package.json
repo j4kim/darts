@@ -4,7 +4,7 @@
   "description": "ptite féchette ?",
   "scripts": {
     "lezgo": "tailwindcss -i input.css -o public/output.css --watch",
-    "build": "tailwindcss -i input.css -o public/output.css --minify"
+    "build": "tailwindcss -i input.css -o public/dist.css --minify"
   },
   "devDependencies": {
     "daisyui": "^4.6.0",
