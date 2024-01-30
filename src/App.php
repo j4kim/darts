@@ -85,7 +85,7 @@ class App
         $this->router->post('/webhook', function () {
             $hookId = getallheaders()['X-Github-Hook-Id'];
             $payload = json_decode($_POST['payload']);
-            if ($hookId == '457884403' && $payload->ref == 'refs/heads/master') {
+            if ($hookId == config('GITHUB_HOOK_ID') && $payload->ref == config('GITHUB_HOOK_REF')) {
                 echo shell_exec("cd .. && git pull 2>&1");
             }
         });
