@@ -83,12 +83,13 @@ class App
         // Webhook
 
         $this->router->post('/webhook', function () {
-            error_log('Webhook received ' . json_encode([
+            error_log('>>> Webhook received ' . json_encode([
                 'headers' => getallheaders(),
                 'post' => $_POST,
+                'server' => $_SERVER,
             ]));
             $output = shell_exec('git pull');
-            error_log('Webhook output ' . $output);
+            error_log('>>> Webhook output ' . $output);
         });
     }
 
