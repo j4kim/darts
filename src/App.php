@@ -79,6 +79,17 @@ class App
             Game::delete($id);
             echo "<div>Partie $id supprimée</div>";
         });
+
+        // Webhook
+
+        $this->router->post('/webhook', function () {
+            error_log('Webhook received ' . json_encode([
+                'headers' => getallheaders(),
+                'post' => $_POST,
+            ]));
+            $output = shell_exec('git pull');
+            error_log('Webhook output ' . $output);
+        });
     }
 
     public function echoGameItem(int $gameId)
