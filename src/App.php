@@ -85,7 +85,7 @@ class App
         $this->router->post('/webhook', function () {
             $headers = getallheaders();
             $post = $_POST;
-            $output = \shell_exec('ls -la');
+            $output = shell_exec('ls -la');
             print_r(compact('output', 'headers', 'post'));
         });
     }
