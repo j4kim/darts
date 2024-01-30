@@ -83,10 +83,15 @@ class App
         // Webhook
 
         $this->router->post('/webhook', function () {
-            $headers = getallheaders();
-            $post = $_POST;
-            $output = shell_exec('ls -la');
-            print_r(compact('output', 'headers', 'post'));
+            $hookId = getallheaders()['X-Github-Hook-Id'];
+            if ($hookId != '457884403') {
+                return;
+            }
+            echo shell_exec("pwd");
+            echo shell_exec("ls -la ..");
+            echo shell_exec("cd ..");
+            echo shell_exec("ls -la");
+            echo shell_exec("git pull origin master");
         });
     }
 
