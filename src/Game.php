@@ -29,7 +29,8 @@ class Game
         )->execute([$data["date"], $data["notes"], $id]);
 
         DB::pdo()->exec("DELETE FROM game_participants WHERE game_id=$id");
-        foreach ($data["ranks"] as $user_id => $rank) {
+        $ranks = @$data["ranks"] ?? [];
+        foreach ($ranks as $user_id => $rank) {
             if (!$rank) continue;
             DB::pdo()->prepare(
                 "INSERT INTO game_participants (game_id, user_id, `rank`) VALUES (?, ?, ?)"
