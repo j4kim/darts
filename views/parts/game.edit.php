@@ -10,8 +10,8 @@ $disabled = $authenticated ? '' : 'disabled';
     hx-post="/game/<?=$game->id?>"
 >
     <div class="card-body gap-4">
-        <h2 class="card-title">
-            Partie <span class="opacity-50"><?= $game->id ?></span> du
+        <h2 class="card-title text-base">
+            Partie du
             <input
                 type="datetime-local"
                 class="input"
