@@ -66,9 +66,10 @@ $disabled = $authenticated ? '' : 'disabled';
             <button
                 class="btn btn-ghost text-error btn-circle"
                 hx-delete="/game/<?= $game->id ?>"
-                hx-confirm="Sûr ?"
+                hx-confirm="Supprimer la partie ?"
                 hx-indicator="next .htmx-indicator"
                 <?= $disabled ?>
+                type="button"
             >
                 <!-- https://fontawesome.com/icons/trash -->
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 448 512" fill="currentcolor">
@@ -80,7 +81,7 @@ $disabled = $authenticated ? '' : 'disabled';
             <button class="btn btn-ghost" hx-get="/game/<?= $game->id ?>" hx-indicator="previous .htmx-indicator">
                 Annuler
             </button>
-            <button class="btn btn-primary" <?= $disabled ?>>
+            <button class="btn btn-primary" <?= $disabled ?> type="submit">
                 Valider
             </button>
         </div>
