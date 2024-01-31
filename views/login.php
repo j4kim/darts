@@ -4,6 +4,7 @@
     class="flex flex-col gap-3 sm:w-60 mx-auto mt-8"
     method="POST"
     action="login"
+
 >
     <p>
         <input
@@ -29,4 +30,7 @@
             Connexion
         </button>
     </p>
+    <?php if(@$_GET['message']) : ?>
+        <p class="text-red-500"><?= $_GET['message'] ?></p>
+    <?php endif ?>
 </form>

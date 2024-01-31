@@ -23,7 +23,7 @@
                 hx-delete="/<?= $tournament->id ?>/remove-participant/<?= $participant->user_id ?>"
                 hx-trigger="long-press"
                 hx-confirm="Supprimer <?= $participant->username ?> ?"
-                data-long-press-delay="500"
+                data-long-press-delay="1000"
             >
                 <td><?= $participant->username ?></td>
                 <td><?= $participant->score ?></td>

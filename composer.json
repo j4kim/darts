@@ -18,7 +18,10 @@
         }
     ],
     "scripts": {
-        "serve": "php -S localhost:1234 -t public",
+        "serve": [
+            "Composer\\Config::disableProcessTimeout",
+            "php -S localhost:1234 -t public"
+        ],
         "migrate": [
             "mysql --password=sandwich --execute=\"drop database if exists darts\"",
             "mysql --password=sandwich --execute=\"create database darts\"",
