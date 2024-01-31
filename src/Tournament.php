@@ -10,6 +10,7 @@ class Tournament
     public array $games = [];
     public array $participants = [];
 
+    const GETALL = "SELECT * FROM tournaments ORDER BY id DESC";
     const GETLASTID = "SELECT id FROM tournaments ORDER BY id DESC LIMIT 1";
     const GETGAMES = "SELECT * FROM games WHERE tournament_id=? ORDER BY date DESC";
     const GETPARTICIPANTS = "SELECT u.username,
@@ -30,6 +31,11 @@ class Tournament
         $stmt->execute([$id]);
         $this->games = $stmt->fetchAll(PDO::FETCH_CLASS, Game::class);
         $this->participants = self::getParticipants($this->id);
+    }
+
+    public static function all()
+    {
+        return DB::get(self::GETALL);
     }
 
     public static function getLastId()

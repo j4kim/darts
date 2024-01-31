@@ -41,6 +41,12 @@ class App
             Tournament::removeParticipant($id, $userId);
         });
 
+        $this->router->get('/tournaments', function () {
+            echo $this->templates->render('tournaments', [
+                'tournaments' => Tournament::all(),
+            ]);
+        });
+
         $this->router->get('/login', function () {
             echo $this->templates->render('login');
         });
