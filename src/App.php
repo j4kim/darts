@@ -61,7 +61,7 @@ class App
                 header('Location: /');
                 return;
             }
-            header('Location: /login?message=Non');
+            echo $this->templates->render('login', [ 'error' => 'Non' ]);
         });
 
         $this->router->get('/logout', function () {
