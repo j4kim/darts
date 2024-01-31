@@ -21,8 +21,9 @@ class App
     private function registerRoutes()
     {
         $this->router->get('/', function () {
-            $id = Tournament::getLastId();
-            header("Location: /$id");
+            echo $this->templates->render('tournaments', [
+                'tournaments' => Tournament::all(),
+            ]);
         });
 
         $this->router->get('/(\d+)', function ($id) {
@@ -33,7 +34,7 @@ class App
 
         $this->router->delete('/(\d+)', function ($id) {
             Tournament::delete($id);
-            header('Location: /tournaments', true, 303);
+            header('Location: /', true, 303);
         });
 
         $this->router->post('/(\d+)/add-participant', function ($id) {
@@ -46,15 +47,9 @@ class App
             Tournament::removeParticipant($id, $userId);
         });
 
-        $this->router->get('/tournaments', function () {
-            echo $this->templates->render('tournaments', [
-                'tournaments' => Tournament::all(),
-            ]);
-        });
-
         $this->router->post('/tournaments', function () {
             Tournament::create();
-            header('Location: /tournaments');
+            header('Location: /');
         });
 
         $this->router->get('/login', function () {

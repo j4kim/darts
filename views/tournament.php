@@ -23,7 +23,3 @@
         </li>
     <?php endif ?>
 <?php $this->stop() ?>
-
-<?php $this->start('menu') ?>
-    <li><a href="/tournaments">Liste des tournois</a></li>
-<?php $this->stop() ?>
