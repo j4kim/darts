@@ -56,7 +56,9 @@ class App
             header('Location: /');
         });
 
-        // Games
+        /**
+         * Games
+         */
 
         $this->router->get('/game/(\d+)', function ($id) {
             $this->echoGameItem($id);
@@ -102,7 +104,9 @@ class App
             header('Location: /');
         });
 
-        // Webhook
+        /**
+         * Webhook
+         */
 
         $this->router->post('/webhook', function () {
             $hookId = getallheaders()['X-Github-Hook-Id'];
