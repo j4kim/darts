@@ -46,8 +46,11 @@ class App
         });
 
         $this->router->post('/login', function () {
-            Auth::login(...$_POST);
-            header('Location: /');
+            if (Auth::login(...$_POST)) {
+                header('Location: /');
+                return;
+            }
+            header('Location: /login?message=Non');
         });
 
         $this->router->get('/logout', function () {
