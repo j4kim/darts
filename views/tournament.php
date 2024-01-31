@@ -1,6 +1,6 @@
 <?php $this->layout('layout') ?>
 
-<?php include 'parts/ranking.php' ?>
+<?php $this->insert('parts/ranking', (array) $tournament) ?>
 
 <h2 class="text-2xl my-4">Parties</h2>
 <div class="flex flex-col gap-4">

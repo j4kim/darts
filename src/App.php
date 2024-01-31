@@ -38,7 +38,8 @@ class App
 
         $this->router->get('/(\d+)/ranking', function ($id) {
             echo $this->templates->render('parts/ranking', [
-                'tournament' => new Tournament($id)
+                'participants' => Tournament::getParticipants($id),
+                'id' => $id,
             ]);
         });
 
