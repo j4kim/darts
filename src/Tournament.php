@@ -11,7 +11,6 @@ class Tournament
     public array $participants = [];
 
     const GETALL = "SELECT * FROM tournaments ORDER BY id DESC";
-    const GETLASTID = "SELECT id FROM tournaments ORDER BY id DESC LIMIT 1";
     const GETGAMES = "SELECT * FROM games WHERE tournament_id=? ORDER BY date DESC";
     const GETGAMESCOUNT = "SELECT count(*) FROM games WHERE tournament_id=?";
     const GETPARTICIPANTS = "SELECT u.username,
@@ -48,11 +47,6 @@ class Tournament
     public static function delete(int $id)
     {
         return DB::pdo()->exec("DELETE FROM tournaments WHERE id=$id");
-    }
-
-    public static function getLastId()
-    {
-        return DB::one(self::GETLASTID);
     }
 
     public static function getParticipants(int $id)
