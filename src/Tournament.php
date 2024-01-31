@@ -97,38 +97,57 @@ class Tournament
         ][min($rank, 5)];
     }
 
-    public function updateScores()
+    public function resetParticipantsScores()
     {
-        $participants = [];
-        /** @var Game $game */
-        foreach ($this->games as $game) {
-            foreach ($game->getGameParticipants() as $gameParticipant) {
-                $user_id = $gameParticipant->user_id;
-                $participants[$user_id] ??= [
-                    "score" => 0,
-                    "played" => 0,
-                    "wins" => 0,
-                ];
-                $participants[$user_id]["score"] += $this->getScoreByRank($gameParticipant->rank);
-                $participants[$user_id]["played"]++;
-                if ($gameParticipant->rank == 1) {
-                    $participants[$user_id]["wins"]++;
-                }
+        foreach ($this->participants as $participant) {
+            $participant->score = 0;
+            $participant->played = 0;
+            $participant->wins = 0;
+        }
+    }
+
+    public function computeParticipantsScoreForGame(Game $game)
+    {
+        $gpById = [];
+        foreach ($game->getGameParticipants() as $gp) {
+            $gpById[$gp->user_id] = $gp;
+        }
+        foreach ($this->participants as $participant) {
+            $gp = @$gpById[$participant->user_id];
+            if (!$gp) continue;
+            $participant->score += $this->getScoreByRank($gp->rank);
+            $participant->played++;
+            if ($gp->rank == 1) {
+                $participant->wins++;
             }
         }
+
+    }
+
+    public function updateParticipantsScore()
+    {
         $stmt = DB::pdo()->prepare(
             "UPDATE tournament_participants
              SET score=?, played=?, wins=?
              WHERE tournament_id=? AND user_id=?"
         );
-        foreach ($participants as $user_id => $data) {
+        foreach ($this->participants as $participant) {
             $stmt->execute([
-                $data["score"],
-                $data["played"],
-                $data["wins"],
+                $participant->score,
+                $participant->played,
+                $participant->wins,
                 $this->id,
-                $user_id,
+                $participant->user_id,
             ]);
         }
+    }
+
+    public function updateScores()
+    {
+        $this->resetParticipantsScores();
+        foreach($this->games as $game) {
+            $this->computeParticipantsScoreForGame($game);
+        }
+        $this->updateParticipantsScore();
     }
 }
