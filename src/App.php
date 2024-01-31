@@ -36,6 +36,12 @@ class App
             ]);
         });
 
+        $this->router->get('/(\d+)/ranking', function ($id) {
+            echo $this->templates->render('parts/ranking', [
+                'tournament' => new Tournament($id)
+            ]);
+        });
+
         $this->router->delete('/(\d+)', function ($id) {
             Tournament::delete($id);
             header('Location: /', true, 303);

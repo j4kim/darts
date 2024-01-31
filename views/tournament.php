@@ -1,6 +1,5 @@
 <?php $this->layout('layout') ?>
 
-<h2 class="text-2xl my-4">Classement</h2>
 <?php include 'parts/ranking.php' ?>
 
 <h2 class="text-2xl my-4">Parties</h2>
