@@ -15,6 +15,13 @@
             <button>Ajouter un joueur</button>
         </form>
     </li>
+    <?php if (count($tournament->games) == 0): ?>
+        <li>
+            <form method="DELETE" action="/<?= $tournament->id ?>">
+                <button>Supprimer le tournoi</button>
+            </form>
+        </li>
+    <?php endif ?>
 <?php $this->stop() ?>
 
 <?php $this->start('menu') ?>

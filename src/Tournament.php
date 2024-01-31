@@ -13,6 +13,7 @@ class Tournament
     const GETALL = "SELECT * FROM tournaments ORDER BY id DESC";
     const GETLASTID = "SELECT id FROM tournaments ORDER BY id DESC LIMIT 1";
     const GETGAMES = "SELECT * FROM games WHERE tournament_id=? ORDER BY date DESC";
+    const GETGAMESCOUNT = "SELECT count(*) FROM games WHERE tournament_id=?";
     const GETPARTICIPANTS = "SELECT u.username,
                                     u.id as user_id,
                                     tp.score,
@@ -42,6 +43,11 @@ class Tournament
     {
         DB::pdo()->exec("INSERT INTO tournaments VALUES ()");
         return DB::pdo()->lastInsertId();
+    }
+
+    public static function delete(int $id)
+    {
+        return DB::pdo()->exec("DELETE FROM tournaments WHERE id=$id");
     }
 
     public static function getLastId()

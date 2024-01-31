@@ -31,6 +31,11 @@ class App
             ]);
         });
 
+        $this->router->delete('/(\d+)', function ($id) {
+            Tournament::delete($id);
+            header('Location: /tournaments', true, 303);
+        });
+
         $this->router->post('/(\d+)/add-participant', function ($id) {
             $username = $_SERVER['HTTP_HX_PROMPT'];
             Tournament::addParticipant($id, $username);
