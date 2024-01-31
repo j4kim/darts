@@ -35,6 +35,7 @@
                 hx-confirm="Supprimer <?= $participant->username ?> ?"
                 data-long-press-delay="1000"
                 class="hover"
+                hx-target="this"
                 <?= J4kim\Darts\Auth::check() ? '' : 'hx-disable' ?>
             >
                 <td><?= $participant->username ?></td>
