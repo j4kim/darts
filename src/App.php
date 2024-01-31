@@ -20,6 +20,10 @@ class App
 
     private function registerRoutes()
     {
+        /**
+         * Tournamanents
+         */
+
         $this->router->get('/', function () {
             echo $this->templates->render('tournaments', [
                 'tournaments' => Tournament::all(),
@@ -52,24 +56,7 @@ class App
             header('Location: /');
         });
 
-        $this->router->get('/login', function () {
-            echo $this->templates->render('login');
-        });
-
-        $this->router->post('/login', function () {
-            if (Auth::login(...$_POST)) {
-                header('Location: /');
-                return;
-            }
-            echo $this->templates->render('login', [ 'error' => 'Non' ]);
-        });
-
-        $this->router->get('/logout', function () {
-            Auth::logout();
-            header('Location: /');
-        });
-
-        // HTMX routes
+        // Games
 
         $this->router->get('/game/(\d+)', function ($id) {
             $this->echoGameItem($id);
@@ -92,6 +79,27 @@ class App
         $this->router->delete('/game/(\d+)', function ($id) {
             Game::delete($id);
             echo "<div>Partie $id supprimée</div>";
+        });
+
+        /**
+         * Auth
+         */
+
+        $this->router->get('/login', function () {
+            echo $this->templates->render('login');
+        });
+
+        $this->router->post('/login', function () {
+            if (Auth::login(...$_POST)) {
+                header('Location: /');
+                return;
+            }
+            echo $this->templates->render('login', [ 'error' => 'Non' ]);
+        });
+
+        $this->router->get('/logout', function () {
+            Auth::logout();
+            header('Location: /');
         });
 
         // Webhook
