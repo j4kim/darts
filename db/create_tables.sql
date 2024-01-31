@@ -1,5 +1,3 @@
-SET FOREIGN_KEY_CHECKS=0;
-
 DROP TABLE IF EXISTS users;
 CREATE TABLE users (
     id INT UNSIGNED NOT NULL AUTO_INCREMENT,
@@ -33,7 +31,7 @@ CREATE TABLE games (
     tournament_id INT UNSIGNED NOT NULL,
     date DATETIME NOT NULL,
     notes TEXT,
-    FOREIGN KEY (tournament_id) REFERENCES tournaments(id)
+    FOREIGN KEY (tournament_id) REFERENCES tournaments(id),
     PRIMARY KEY (id)
 );
 
