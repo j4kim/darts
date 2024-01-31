@@ -33,6 +33,7 @@ CREATE TABLE games (
     tournament_id INT UNSIGNED NOT NULL,
     date DATETIME NOT NULL,
     notes TEXT,
+    FOREIGN KEY (tournament_id) REFERENCES tournaments(id)
     PRIMARY KEY (id)
 );
 
