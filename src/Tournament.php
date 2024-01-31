@@ -31,10 +31,8 @@ class Tournament
     public function __construct(int $id)
     {
         $this->id = $id;
-        $stmt = DB::pdo()->prepare(self::GETGAMES);
-        $stmt->execute([$id]);
-        $this->games = $stmt->fetchAll(PDO::FETCH_CLASS, Game::class);
-        $this->participants = self::getParticipants($this->id);
+        $this->games = self::getGames($id);
+        $this->participants = self::getParticipants($id);
     }
 
     public static function all()
@@ -51,6 +49,13 @@ class Tournament
     public static function delete(int $id)
     {
         return DB::pdo()->exec("DELETE FROM tournaments WHERE id=$id");
+    }
+
+    public static function getGames(int $id)
+    {
+        $stmt = DB::pdo()->prepare(self::GETGAMES);
+        $stmt->execute([$id]);
+        return $stmt->fetchAll(PDO::FETCH_CLASS, Game::class);
     }
 
     public static function getParticipants(int $id)
