@@ -10,7 +10,11 @@ class Tournament
     public array $games = [];
     public array $participants = [];
 
-    const GETALL = "SELECT * FROM tournaments ORDER BY id DESC";
+    const GETALL = "SELECT t.id,
+                           (select count(*) from games g where g.tournament_id = t.id) as games_count
+                    FROM tournaments t
+                    ORDER BY id DESC";
+
     const GETGAMES = "SELECT * FROM games WHERE tournament_id=? ORDER BY date DESC";
     const GETGAMESCOUNT = "SELECT count(*) FROM games WHERE tournament_id=?";
     const GETPARTICIPANTS = "SELECT u.username,
