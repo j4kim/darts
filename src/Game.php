@@ -27,22 +27,22 @@ class Game
         return new Tournament($this->tournament_id);
     }
 
-    public static function update(int $id, array $data)
+    public function update(array $data)
     {
         DB::pdo()->prepare(
             "UPDATE games SET date=?, notes=? WHERE id=?"
-        )->execute([$data["date"], $data["notes"], $id]);
+        )->execute([$data["date"], $data["notes"], $this->id]);
 
-        DB::pdo()->exec("DELETE FROM game_participants WHERE game_id=$id");
+        DB::pdo()->exec("DELETE FROM game_participants WHERE game_id=$this->id");
         $ranks = @$data["ranks"] ?? [];
         foreach ($ranks as $user_id => $rank) {
             if (!$rank) continue;
             DB::pdo()->prepare(
                 "INSERT INTO game_participants (game_id, user_id, `rank`) VALUES (?, ?, ?)"
-            )->execute([$id, $user_id, $rank]);
+            )->execute([$this->id, $user_id, $rank]);
         }
 
-        self::find($id)->tournament()->updateScores();
+        $this->tournament()->updateScores();
     }
 
     public static function create(int $tournamentId): int
@@ -54,11 +54,10 @@ class Game
         return DB::pdo()->lastInsertId();
     }
 
-    public static function delete(int $id)
+    public function delete()
     {
-        $game = self::find($id);
-        DB::pdo()->prepare("DELETE FROM games WHERE id=?")->execute([$id]);
-        $game->tournament()->updateScores();
+        DB::pdo()->prepare("DELETE FROM games WHERE id=?")->execute([$this->id]);
+        $this->tournament()->updateScores();
     }
 
     public function dateTime(): DateTime

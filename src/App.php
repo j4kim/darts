@@ -68,7 +68,7 @@ class App
          */
 
         $this->router->get('/game/(\d+)', function ($id) {
-            $this->echoGameItem($id);
+            $this->echoGameItem(Game::find($id));
         });
 
         $this->router->get('/game/(\d+)/edit', function ($id) {
@@ -76,8 +76,9 @@ class App
         });
 
         $this->router->post('/game/(\d+)', function ($id) {
-            Game::update($id, $_POST);
-            $this->echoGameItem($id);
+            $game = Game::find($id);
+            $game->update($_POST);
+            $this->echoGameItem($game);
         });
 
         $this->router->post('/game/new/(\d+)', function ($tournamentId) {
@@ -86,7 +87,8 @@ class App
         });
 
         $this->router->delete('/game/(\d+)', function ($id) {
-            Game::delete($id);
+            $game = Game::find($id);
+            $game->delete();
             echo "<div>Partie $id supprimée</div>";
         });
 
@@ -124,10 +126,10 @@ class App
         });
     }
 
-    public function echoGameItem(int $gameId)
+    public function echoGameItem(Game $game)
     {
         echo $this->templates->render('parts/game', [
-            'game' => Game::find($gameId),
+            'game' => $game,
         ]);
     }
 
