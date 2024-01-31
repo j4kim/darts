@@ -20,15 +20,32 @@ class App
 
     private function registerRoutes()
     {
+        /**
+         * Tournamanents
+         */
+
         $this->router->get('/', function () {
-            $id = Tournament::getLastId();
-            header("Location: /$id");
+            echo $this->templates->render('tournaments', [
+                'tournaments' => Tournament::all(),
+            ]);
         });
 
         $this->router->get('/(\d+)', function ($id) {
             echo $this->templates->render('tournament', [
                 'tournament' => new Tournament($id)
             ]);
+        });
+
+        $this->router->get('/(\d+)/ranking', function ($id) {
+            echo $this->templates->render('parts/ranking', [
+                'participants' => Tournament::getParticipants($id),
+                'id' => $id,
+            ]);
+        });
+
+        $this->router->delete('/(\d+)', function ($id) {
+            Tournament::delete($id);
+            header('Location: /', true, 303);
         });
 
         $this->router->post('/(\d+)/add-participant', function ($id) {
@@ -41,6 +58,44 @@ class App
             Tournament::removeParticipant($id, $userId);
         });
 
+        $this->router->post('/tournaments', function () {
+            Tournament::create();
+            header('Location: /');
+        });
+
+        /**
+         * Games
+         */
+
+        $this->router->get('/game/(\d+)', function ($id) {
+            $this->echoGameItem(Game::find($id));
+        });
+
+        $this->router->get('/game/(\d+)/edit', function ($id) {
+            $this->echoGameEditForm($id);
+        });
+
+        $this->router->post('/game/(\d+)', function ($id) {
+            $game = Game::find($id);
+            $game->update($_POST);
+            $this->echoGameItem($game);
+        });
+
+        $this->router->post('/game/new/(\d+)', function ($tournamentId) {
+            $id = Game::create($tournamentId);
+            $this->echoGameEditForm($id);
+        });
+
+        $this->router->delete('/game/(\d+)', function ($id) {
+            $game = Game::find($id);
+            $game->delete();
+            echo "<div>Partie $id supprimée</div>";
+        });
+
+        /**
+         * Auth
+         */
+
         $this->router->get('/login', function () {
             echo $this->templates->render('login');
         });
@@ -50,7 +105,7 @@ class App
                 header('Location: /');
                 return;
             }
-            header('Location: /login?message=Non');
+            echo $this->templates->render('login', [ 'error' => 'Non' ]);
         });
 
         $this->router->get('/logout', function () {
@@ -58,32 +113,9 @@ class App
             header('Location: /');
         });
 
-        // HTMX routes
-
-        $this->router->get('/game/(\d+)', function ($id) {
-            $this->echoGameItem($id);
-        });
-
-        $this->router->get('/game/(\d+)/edit', function ($id) {
-            $this->echoGameEditForm($id);
-        });
-
-        $this->router->post('/game/(\d+)', function ($id) {
-            Game::update($id, $_POST);
-            $this->echoGameItem($id);
-        });
-
-        $this->router->post('/game/new/(\d+)', function ($tournamentId) {
-            $id = Game::create($tournamentId);
-            $this->echoGameEditForm($id);
-        });
-
-        $this->router->delete('/game/(\d+)', function ($id) {
-            Game::delete($id);
-            echo "<div>Partie $id supprimée</div>";
-        });
-
-        // Webhook
+        /**
+         * Webhook
+         */
 
         $this->router->post('/webhook', function () {
             $hookId = getallheaders()['X-Github-Hook-Id'];
@@ -94,10 +126,10 @@ class App
         });
     }
 
-    public function echoGameItem(int $gameId)
+    public function echoGameItem(Game $game)
     {
         echo $this->templates->render('parts/game', [
-            'game' => Game::find($gameId),
+            'game' => $game,
         ]);
     }
 

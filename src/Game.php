@@ -22,19 +22,27 @@ class Game
         return $stmt->fetch();
     }
 
-    public static function update(int $id, array $data)
+    public function tournament(): Tournament
+    {
+        return new Tournament($this->tournament_id);
+    }
+
+    public function update(array $data)
     {
         DB::pdo()->prepare(
             "UPDATE games SET date=?, notes=? WHERE id=?"
-        )->execute([$data["date"], $data["notes"], $id]);
+        )->execute([$data["date"], $data["notes"], $this->id]);
 
-        DB::pdo()->exec("DELETE FROM game_participants WHERE game_id=$id");
-        foreach ($data["ranks"] as $user_id => $rank) {
+        DB::pdo()->exec("DELETE FROM game_participants WHERE game_id=$this->id");
+        $ranks = @$data["ranks"] ?? [];
+        foreach ($ranks as $user_id => $rank) {
             if (!$rank) continue;
             DB::pdo()->prepare(
                 "INSERT INTO game_participants (game_id, user_id, `rank`) VALUES (?, ?, ?)"
-            )->execute([$id, $user_id, $rank]);
+            )->execute([$this->id, $user_id, $rank]);
         }
+
+        $this->tournament()->updateScores();
     }
 
     public static function create(int $tournamentId): int
@@ -46,9 +54,10 @@ class Game
         return DB::pdo()->lastInsertId();
     }
 
-    public static function delete(int $id)
+    public function delete()
     {
-        return DB::pdo()->prepare("DELETE FROM games WHERE id=?")->execute([$id]);
+        DB::pdo()->prepare("DELETE FROM games WHERE id=?")->execute([$this->id]);
+        $this->tournament()->updateScores();
     }
 
     public function dateTime(): DateTime
@@ -61,9 +70,14 @@ class Game
         return $this->dateTime()->format("d.m.Y");
     }
 
+    public function getGameParticipants()
+    {
+        return DB::get("SELECT * FROM game_participants WHERE game_id=$this->id");
+    }
+
     public function loadParticipants()
     {
-        $this->gameParticipants = DB::get("SELECT * FROM game_participants WHERE game_id=$this->id");
+        $this->gameParticipants = self::getGameParticipants();
         $this->tournamentParticipants = array_map(
             function ($participant) {
                 $participant->rank = $this->getUserRank($participant->user_id);

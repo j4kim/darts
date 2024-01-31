@@ -10,8 +10,13 @@ class Tournament
     public array $games = [];
     public array $participants = [];
 
-    const GETLASTID = "SELECT id FROM tournaments ORDER BY id DESC LIMIT 1";
+    const GETALL = "SELECT t.id,
+                           (select count(*) from games g where g.tournament_id = t.id) as games_count
+                    FROM tournaments t
+                    ORDER BY id DESC";
+
     const GETGAMES = "SELECT * FROM games WHERE tournament_id=? ORDER BY date DESC";
+    const GETGAMESCOUNT = "SELECT count(*) FROM games WHERE tournament_id=?";
     const GETPARTICIPANTS = "SELECT u.username,
                                     u.id as user_id,
                                     tp.score,
@@ -26,15 +31,31 @@ class Tournament
     public function __construct(int $id)
     {
         $this->id = $id;
-        $stmt = DB::pdo()->prepare(self::GETGAMES);
-        $stmt->execute([$id]);
-        $this->games = $stmt->fetchAll(PDO::FETCH_CLASS, Game::class);
-        $this->participants = self::getParticipants($this->id);
+        $this->games = self::getGames($id);
+        $this->participants = self::getParticipants($id);
     }
 
-    public static function getLastId()
+    public static function all()
     {
-        return DB::one(self::GETLASTID);
+        return DB::get(self::GETALL);
+    }
+
+    public static function create(): int
+    {
+        DB::pdo()->exec("INSERT INTO tournaments VALUES ()");
+        return DB::pdo()->lastInsertId();
+    }
+
+    public static function delete(int $id)
+    {
+        return DB::pdo()->exec("DELETE FROM tournaments WHERE id=$id");
+    }
+
+    public static function getGames(int $id)
+    {
+        $stmt = DB::pdo()->prepare(self::GETGAMES);
+        $stmt->execute([$id]);
+        return $stmt->fetchAll(PDO::FETCH_CLASS, Game::class);
     }
 
     public static function getParticipants(int $id)
@@ -63,5 +84,70 @@ class Tournament
         DB::pdo()
             ->prepare("DELETE FROM tournament_participants WHERE tournament_id=? AND user_id=?")
             ->execute([$id, $userId]);
+    }
+
+    public function getScoreByRank(int $rank): int
+    {
+        return [
+            1 => 10,
+            2 => 6,
+            3 => 3,
+            4 => 1,
+            5 => 0,
+        ][min($rank, 5)];
+    }
+
+    public function resetParticipantsScores()
+    {
+        foreach ($this->participants as $participant) {
+            $participant->score = 0;
+            $participant->played = 0;
+            $participant->wins = 0;
+        }
+    }
+
+    public function computeParticipantsScoreForGame(Game $game)
+    {
+        $gpById = [];
+        foreach ($game->getGameParticipants() as $gp) {
+            $gpById[$gp->user_id] = $gp;
+        }
+        foreach ($this->participants as $participant) {
+            $gp = @$gpById[$participant->user_id];
+            if (!$gp) continue;
+            $participant->score += $this->getScoreByRank($gp->rank);
+            $participant->played++;
+            if ($gp->rank == 1) {
+                $participant->wins++;
+            }
+        }
+
+    }
+
+    public function updateParticipantsScore()
+    {
+        $stmt = DB::pdo()->prepare(
+            "UPDATE tournament_participants
+             SET score=?, played=?, wins=?
+             WHERE tournament_id=? AND user_id=?"
+        );
+        foreach ($this->participants as $participant) {
+            $stmt->execute([
+                $participant->score,
+                $participant->played,
+                $participant->wins,
+                $this->id,
+                $participant->user_id,
+            ]);
+        }
+    }
+
+    public function updateScores()
+    {
+        $this->resetParticipantsScores();
+        foreach($this->games as $game) {
+            $this->computeParticipantsScoreForGame($game);
+        }
+        $this->updateParticipantsScore();
     }
 }

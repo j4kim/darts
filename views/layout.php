@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="fr" data-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -30,10 +30,12 @@
                 <?php if (J4kim\Darts\Auth::check()) : ?>
                     <li class="px-4 py-2 opacity-50"><?= J4kim\Darts\Auth::username() ?></li>
                     <li><a href="logout">Se déconnecter</a></li>
-                    <?= $this->section('menu') ?>
+                    <li></li>
+                    <?= $this->section('auth-menu') ?>
                 <?php else : ?>
                     <li><a href="login">Se connecter</a></li>
                 <?php endif; ?>
+                <?= $this->section('menu') ?>
             </ul>
         </div>
     </header>
