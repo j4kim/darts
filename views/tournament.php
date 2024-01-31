@@ -9,10 +9,14 @@
     <?php foreach ($tournament->games as $game) include 'parts/game.php' ?>
 </div>
 
-<?php $this->start('menu') ?>
+<?php $this->start('auth-menu') ?>
     <li hx-prompt="Nom du joueur">
         <form method="POST" action="/<?= $tournament->id ?>/add-participant">
             <button>Ajouter un joueur</button>
         </form>
     </li>
+<?php $this->stop() ?>
+
+<?php $this->start('menu') ?>
+    <li><a href="/tournaments">Liste des tournois</a></li>
 <?php $this->stop() ?>
