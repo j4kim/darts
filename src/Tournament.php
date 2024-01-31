@@ -38,6 +38,12 @@ class Tournament
         return DB::get(self::GETALL);
     }
 
+    public static function create(): int
+    {
+        DB::pdo()->exec("INSERT INTO tournaments VALUES ()");
+        return DB::pdo()->lastInsertId();
+    }
+
     public static function getLastId()
     {
         return DB::one(self::GETLASTID);

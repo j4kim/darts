@@ -47,6 +47,11 @@ class App
             ]);
         });
 
+        $this->router->post('/tournaments', function () {
+            Tournament::create();
+            header('Location: /tournaments');
+        });
+
         $this->router->get('/login', function () {
             echo $this->templates->render('login');
         });
