@@ -85,4 +85,50 @@ class Tournament
             ->prepare("DELETE FROM tournament_participants WHERE tournament_id=? AND user_id=?")
             ->execute([$id, $userId]);
     }
+
+    public function getScoreByRank(int $rank): int
+    {
+        return [
+            1 => 10,
+            2 => 6,
+            3 => 3,
+            4 => 1,
+            5 => 0,
+        ][min($rank, 5)];
+    }
+
+    public function updateScores()
+    {
+        $participants = [];
+        /** @var Game $game */
+        foreach ($this->games as $game) {
+            foreach ($game->getGameParticipants() as $gameParticipant) {
+                $user_id = $gameParticipant->user_id;
+                $participants[$user_id] ??= [
+                    "score" => 0,
+                    "played" => 0,
+                    "wins" => 0,
+                ];
+                $participants[$user_id]["score"] += $this->getScoreByRank($gameParticipant->rank);
+                $participants[$user_id]["played"]++;
+                if ($gameParticipant->rank == 1) {
+                    $participants[$user_id]["wins"]++;
+                }
+            }
+        }
+        $stmt = DB::pdo()->prepare(
+            "UPDATE tournament_participants
+             SET score=?, played=?, wins=?
+             WHERE tournament_id=? AND user_id=?"
+        );
+        foreach ($participants as $user_id => $data) {
+            $stmt->execute([
+                $data["score"],
+                $data["played"],
+                $data["wins"],
+                $this->id,
+                $user_id,
+            ]);
+        }
+    }
 }

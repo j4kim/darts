@@ -22,6 +22,11 @@ class Game
         return $stmt->fetch();
     }
 
+    public function tournament(): Tournament
+    {
+        return new Tournament($this->tournament_id);
+    }
+
     public static function update(int $id, array $data)
     {
         DB::pdo()->prepare(
@@ -36,6 +41,8 @@ class Game
                 "INSERT INTO game_participants (game_id, user_id, `rank`) VALUES (?, ?, ?)"
             )->execute([$id, $user_id, $rank]);
         }
+
+        self::find($id)->tournament()->updateScores();
     }
 
     public static function create(int $tournamentId): int
@@ -49,7 +56,9 @@ class Game
 
     public static function delete(int $id)
     {
-        return DB::pdo()->prepare("DELETE FROM games WHERE id=?")->execute([$id]);
+        $game = self::find($id);
+        DB::pdo()->prepare("DELETE FROM games WHERE id=?")->execute([$id]);
+        $game->tournament()->updateScores();
     }
 
     public function dateTime(): DateTime
@@ -62,9 +71,14 @@ class Game
         return $this->dateTime()->format("d.m.Y");
     }
 
+    public function getGameParticipants()
+    {
+        return DB::get("SELECT * FROM game_participants WHERE game_id=$this->id");
+    }
+
     public function loadParticipants()
     {
-        $this->gameParticipants = DB::get("SELECT * FROM game_participants WHERE game_id=$this->id");
+        $this->gameParticipants = self::getGameParticipants();
         $this->tournamentParticipants = array_map(
             function ($participant) {
                 $participant->rank = $this->getUserRank($participant->user_id);
