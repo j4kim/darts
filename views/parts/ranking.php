@@ -24,6 +24,7 @@
                 hx-trigger="long-press"
                 hx-confirm="Supprimer <?= $participant->username ?> ?"
                 data-long-press-delay="1000"
+                <?= J4kim\Darts\Auth::check() ? '' : 'hx-disable' ?>
             >
                 <td><?= $participant->username ?></td>
                 <td><?= $participant->score ?></td>

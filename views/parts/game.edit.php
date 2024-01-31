@@ -1,3 +1,8 @@
+<?php
+$authenticated = J4kim\Darts\Auth::check();
+$disabled = $authenticated ? '' : 'disabled';
+?>
+
 <form
     class="card bg-base-200"
     hx-target="this"
@@ -12,6 +17,7 @@
                 class="input"
                 name="date"
                 value="<?= $game->dateTime()->format("Y-m-d\TH:i") ?>"
+                <?= $disabled ?>
             />
         </h2>
         <table class="table" x-data='{
@@ -29,6 +35,7 @@
                                 class="toggle toggle-primary"
                                 :checked="!!p.rank"
                                 @click="p.rank = p.rank ? null : nextRank"
+                                <?= $disabled ?>
                             />
                         </td>
                         <td x-text="p.username"></td>
@@ -40,6 +47,7 @@
                                 x-model="p.rank"
                                 min="1"
                                 :max="participants.length"
+                                <?= $disabled ?>
                             />
                         </td>
                     </tr>
@@ -51,6 +59,7 @@
                 class="textarea w-full"
                 placeholder="Notes"
                 name="notes"
+                <?= $disabled ?>
             ><?= $game->notes ?></textarea>
         </p>
         <div class="card-actions items-center">
@@ -59,6 +68,7 @@
                 hx-delete="/game/<?= $game->id ?>"
                 hx-confirm="Sûr ?"
                 hx-indicator="next .htmx-indicator"
+                <?= $disabled ?>
             >
                 <!-- https://fontawesome.com/icons/trash -->
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 448 512" fill="currentcolor">
@@ -70,7 +80,7 @@
             <button class="btn btn-ghost" hx-get="/game/<?= $game->id ?>" hx-indicator="previous .htmx-indicator">
                 Annuler
             </button>
-            <button class="btn btn-primary">
+            <button class="btn btn-primary" <?= $disabled ?>>
                 Valider
             </button>
         </div>
