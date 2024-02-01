@@ -2,18 +2,17 @@
 
 <div
     class="h-full w-full flex flex-col gap-4"
-    x-data="{ counter: 1 }"
+    x-data="{ counter: 0 }"
 >
     <div
         class="btn text-9xl flex-1"
         x-text="counter"
         @click="counter++; requestWakeLock()"
+        @long-press.prevent="counter--"
+        data-long-press-delay="1000"
     >
     </div>
-    <div class="flex gap-4 justify-between">
-        <div class="btn text-2xl flex-1" @click="counter = 1" >1</div>
-        <div class="btn text-2xl flex-1" @click="counter--" >-1</div>
-    </div>
+    <div class="btn text-xl" @click="counter = 0" >RESET</div>
 </div>
 
 <script>
