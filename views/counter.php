@@ -26,7 +26,8 @@
 
 <style>
     body {
-        height: 100dvh;
+        height: 100vh; /* Fallback */
+        height: 100svh;
         display: flex;
         flex-direction: column;
     }
