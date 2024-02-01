@@ -66,8 +66,8 @@ class App
         });
 
         $this->router->post('/tournaments', function () {
-            Tournament::create();
-            header('Location: /tournaments');
+            $id = Tournament::create();
+            header("Location: /$id");
         });
 
         /**
