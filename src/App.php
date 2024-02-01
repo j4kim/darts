@@ -114,6 +114,14 @@ class App
         });
 
         /**
+         * Counter
+         */
+
+        $this->router->get('/counter', function () {
+            echo $this->templates->render('counter');
+        });
+
+        /**
          * Webhook
          */
 
