@@ -2,7 +2,7 @@
 <html lang="fr" data-theme="dark">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <link href="<?= file_exists('./output.css') ? './output.css' : './dist.css' ?>" rel="stylesheet">
     <link rel="icon" href="https://www.svgrepo.com/show/172641/darts.svg">
     <script src="https://unpkg.com/htmx.org@1.9.10"></script>
@@ -24,7 +24,7 @@
             </div>
             <ul 
                 hx-boost="true"
-                class="mt-2 p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52"
+                class="mt-2 p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52 text-base"
                 tabindex="0"
             >
                 <?php if (J4kim\Darts\Auth::check()) : ?>
