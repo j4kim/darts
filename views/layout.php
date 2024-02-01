@@ -35,6 +35,7 @@
                 <?php else : ?>
                     <li><a href="login">Se connecter</a></li>
                 <?php endif; ?>
+                <li><a href="counter">Compteur</a></li>
                 <?= $this->section('menu') ?>
             </ul>
         </div>
