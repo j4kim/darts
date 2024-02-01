@@ -16,6 +16,10 @@
     </div>
 </div>
 
+<script>
+    navigator.wakeLock.request("screen")
+</script>
+
 <style>
     body {
         height: 100dvh;
