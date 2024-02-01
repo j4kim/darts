@@ -12,6 +12,8 @@ class Game
     public string $date;
     public ?string $notes;
 
+    public ?string $winner;
+
     public array $gameParticipants;
     public array $tournamentParticipants;
 
@@ -84,6 +86,16 @@ class Game
                 return $participant;
             },
             Tournament::getParticipants($this->tournament_id)
+        );
+    }
+
+    public function loadWinner()
+    {
+        $this->winner = DB::one(
+            "SELECT u.username
+            FROM game_participants gp
+            INNER JOIN users u on u.id = gp.user_id
+            WHERE game_id=$this->id and `rank`=1"
         );
     }
 

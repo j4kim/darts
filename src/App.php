@@ -31,8 +31,12 @@ class App
 
         $this->router->get('/(\d+)', function ($id) {
             setcookie('gameId', $id, time()+60*60*24*30);
+            $tournament = new Tournament($id);
+            foreach ($tournament->games as $game) {
+                $game->loadWinner();
+            }
             echo $this->templates->render('tournament', [
-                'tournament' => new Tournament($id)
+                'tournament' => $tournament,
             ]);
         });
 
@@ -75,7 +79,9 @@ class App
          */
 
         $this->router->get('/game/(\d+)', function ($id) {
-            $this->echoGameItem(Game::find($id));
+            $game = Game::find($id);
+            $game->loadWinner();
+            $this->echoGameItem($game);
         });
 
         $this->router->get('/game/(\d+)/edit', function ($id) {

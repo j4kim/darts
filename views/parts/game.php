@@ -6,6 +6,10 @@
     <div class="w-8 opacity-50">
         <?= $game->id ?>
     </div>
-    <?= $game->formattedDate() ?>
-    <span class="htmx-indicator loading"></span>
+    <div class="w-24">
+        <?= $game->formattedDate() ?>
+    </div>
+    <div class="font-normal">
+        <?= $game->winner ?>
+    </div>
 </a>
