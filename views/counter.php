@@ -4,15 +4,15 @@
     class="h-full w-full flex flex-col gap-4"
     x-data="{ counter: 1 }"
 >
-    <div
+    <button
         class="btn text-9xl flex-1"
         x-text="counter"
         @click="counter++; requestWakeLock()"
     >
-    </div>
+    </button>
     <div class="flex gap-4 justify-between">
-        <div class="btn text-2xl flex-1" @click="counter = 1" >1</div>
-        <div class="btn text-2xl flex-1" @click="counter--" >-1</div>
+        <button class="btn text-2xl flex-1" @click="counter = 1" >1</button>
+        <button class="btn text-2xl flex-1" @click="counter--" >-1</button>
     </div>
 </div>
 
