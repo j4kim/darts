@@ -7,7 +7,7 @@
     <div
         class="btn text-9xl flex-1"
         x-text="counter"
-        @click="counter++"
+        @click="counter++; requestWakeLock()"
     >
     </div>
     <div class="flex gap-4 justify-between">
@@ -17,7 +17,12 @@
 </div>
 
 <script>
-    navigator.wakeLock.request("screen")
+    var wakeLock = null;
+
+    async function requestWakeLock() {
+        if (wakeLock && !wakeLock.released) return;
+        wakeLock = await navigator.wakeLock.request("screen");
+    }
 </script>
 
 <style>
