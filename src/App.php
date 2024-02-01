@@ -25,11 +25,12 @@ class App
          */
 
         $this->router->get('/', function () {
-            $id = Tournament::getLastId();
-            header("Location: /$id");
+            $redirectTo = $_COOKIE['gameId'] ?? 'tournaments';
+            header("Location: /$redirectTo");
         });
 
         $this->router->get('/(\d+)', function ($id) {
+            setcookie('gameId', $id, time()+60*60*24*30);
             echo $this->templates->render('tournament', [
                 'tournament' => new Tournament($id)
             ]);
@@ -58,6 +59,7 @@ class App
         });
 
         $this->router->get('/tournaments', function () {
+            setcookie('gameId', '', time()-3600);
             echo $this->templates->render('tournaments', [
                 'tournaments' => Tournament::all(),
             ]);
