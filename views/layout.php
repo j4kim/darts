@@ -24,7 +24,7 @@
             </div>
             <ul 
                 hx-boost="true"
-                class="mt-2 p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52"
+                class="mt-2 p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52 text-base"
                 tabindex="0"
             >
                 <?php if (J4kim\Darts\Auth::check()) : ?>
