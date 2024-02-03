@@ -91,6 +91,7 @@ class App
         $this->router->post('/game/(\d+)', function ($id) {
             $game = Game::find($id);
             $game->update($_POST);
+            $game->loadWinner();
             $this->echoGameItem($game);
         });
 
