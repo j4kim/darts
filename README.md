@@ -46,10 +46,10 @@ npm run lezgo
 
 ## Test
 
-While local server and tailwind are running. Open cypress using:
+While local server and tailwind are running. Open cypress:
 
 ```
-composer test
+npx cypress open
 ```
 
 ## Deploy
