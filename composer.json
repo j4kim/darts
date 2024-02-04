@@ -27,6 +27,10 @@
             "mysql --password=sandwich --execute=\"create database darts\"",
             "mysql --password=sandwich darts < db/create_tables.sql",
             "mysql --password=sandwich darts < db/seed.sql"
+        ],
+        "test": [
+            "Composer\\Config::disableProcessTimeout",
+            "npx cypress open -b chrome --e2e"
         ]
     }
 }

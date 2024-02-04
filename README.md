@@ -22,14 +22,9 @@ cp config.example.php config.php
 
 Configure DB conection in `config.php`.
 
-Create database:
+Create database (assuming the password for mysql is "sandwich"):
 ```
 composer migrate
-```
-
-Run local server:
-```
-composer serve
 ```
 
 Install js dependencies:
@@ -37,11 +32,32 @@ Install js dependencies:
 npm install
 ```
 
+## Run
+
+Run local server:
+```
+composer serve
+```
+
 Run tailwind:
 ```
 npm run lezgo
 ```
 
-## Deployment
+## Test
 
-Deployment is performed via a Github Webhook making a post request to `/webhook`. All pushes to branch master should produce an update on the server.
+While local server and tailwind are running. Open cypress using:
+
+```
+composer test
+```
+
+## Deploy
+
+Deployment is performed via a [Github Webhook](https://github.com/j4kim/darts/settings/hooks) making a post request to `/webhook`. All pushes to branch master produces an update on the server.
+
+Before a push to master, build css:
+
+```
+npm run build
+```
