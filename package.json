@@ -1,7 +1,6 @@
 {
   "name": "darts",
   "version": "0.1.0",
-  "description": "ptite féchette ?",
   "scripts": {
     "lezgo": "tailwindcss -i input.css -o public/output.css --watch",
     "build": "tailwindcss -i input.css -o public/dist.css --minify"
