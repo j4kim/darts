@@ -23,10 +23,10 @@
             "php -S localhost:1234 -t public"
         ],
         "migrate": [
-            "mysql --password=sandwich --execute=\"drop database if exists darts\"",
-            "mysql --password=sandwich --execute=\"create database darts\"",
-            "mysql --password=sandwich darts < db/create_tables.sql",
-            "mysql --password=sandwich darts < db/seed.sql"
+            "mysql --execute=\"drop database if exists darts\"",
+            "mysql --execute=\"create database darts\"",
+            "mysql darts < db/create_tables.sql",
+            "mysql darts < db/seed.sql"
         ]
     }
 }
